@@ -8,7 +8,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 
 library(reticulate)
-use_python("/Users/martin/anaconda3/envs/m-team/bin/python",
+use_python("/anaconda3/envs/m-team/bin/python",
            required = T)
 use_condaenv("m-team", required = T)
 ```
