@@ -1,0 +1,121 @@
+---
+title: "課堂練習"
+date: "9/12/2019"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(reticulate)
+use_python("/Users/anthonywwetterer/anaconda3/envs/m-team/bin/python",
+           required = T)
+use_condaenv("m-team", required = T)
+```
+
+
+
+# dictionary
+
+```{python}
+dictionaryA={
+  "日期": [2001,2002,2003],
+  "金額": [21000,33000,45880]}
+dictionaryA
+
+dictionaryA["數量"]=[100,200,300] # 增加新的 key-value pair
+dictionaryA
+```
+
+```{python}
+dictionaryA["日期"] # 查詢
+```
+
+
+
+```{python}
+dictionaryA.keys()
+```
+
+
+```{python}
+import requests
+response=requests.get("https://cloud.culture.tw/frontsite/trans/SearchShowAction.do?method=doFindTypeJ&category=3")
+danceInfo=response.json()
+```
+
+```{python}
+type(danceInfo)
+```
+
+```{python}
+type(danceInfo[1])
+```
+
+```{python}
+danceInfo[1].keys()
+```
+
+
+```{python}
+danceInfo[1].values()
+```
+
+
+
+```{python}
+dictionaryA.keys()
+dictionaryA.values()
+dictionaryA.items()
+
+#dictionaryA.keys()[0]
+list(dictionaryA.keys())
+list(dictionaryA.values())
+```
+
+```{python}
+dictionaryA.keys()
+list(dictionaryA.keys())[0]
+```
+
+```{python}
+dictionaryA.items()
+list(dictionaryA.items())
+```
+
+```{python}
+list(dictionaryA)
+```
+
+```{python}
+import pandas as pd
+
+finStatement=pd.read_csv("http://mopsfin.twse.com.tw/opendata/t187ap06_O_ci.csv")
+dict_finStatement=finStatement.to_dict()
+```
+
+```{r}
+library(dplyr)
+py$dict_finStatement %>% View
+```
+
+```{python}
+dict_finStatement.keys()
+```
+
+
+```{python}
+dict_finStatement.get( '營業利益（損失）')
+dict_finStatement.get('公司名稱')
+```
+
+# comprehension with condition
+```{python}
+listA=[10,2,7,3,8]
+
+[listA[index] for index in range(len(listA)) if listA[index]>5]
+[index for index in range(len(listA)) if listA[index]>5 ]
+```
+
