@@ -97,8 +97,8 @@ dict_finStatement=finStatement.to_dict()
 ```
 
 ```{r}
-library(dplyr)
-py$dict_finStatement %>% View
+#library(dplyr)
+View(py$dict_finStatement)
 ```
 
 ```{python}
@@ -107,11 +107,38 @@ dict_finStatement.keys()
 
 
 ```{python}
-dict_finStatement.get( '營業利益（損失）')
+dict_finStatement.get( '營業利益（損失）').values()
 dict_finStatement.get('公司名稱')
 ```
 
+1. 找出損失的index
+```{python}
+profit=list(dict_finStatement.get( '營業利益（損失）').values())
+
+lossFirmKeys=[index for index in range(len(profit)) if profit[index]<0]
+```
+
+2. 由index進去公司找出名稱
+```{python}
+index=lossFirmKeys[100]
+dict_finStatement.get('公司名稱')[index]
+dict_finStatement.get('公司名稱').get(index)
+
+[dict_finStatement.get('公司名稱').get(index) for index in lossFirmKeys]
+```
+
+dictionary comprehension 呈現公司名稱：損失金額
+```{python}
+{dict_finStatement.get('公司名稱').get(index): list(dict_finStatement.get( '營業利益（損失）').values())[index] for index in lossFirmKeys}
+```
+
+```{python}
+dict_finStatement.get( '營業利益（損失）').values()
+```
+
+
 # comprehension with condition
+
 ```{python}
 listA=[10,2,7,3,8]
 
