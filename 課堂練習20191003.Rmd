@@ -204,3 +204,180 @@ b=
 b={"alpha": 1, "beta": 3}
 ```
 
+```{python}
+def test(input1, input2=0):
+  print('input1 is ', input1)
+  print('input2 is ', input2)
+  return None
+  
+test(1,1) 
+test(input1=1,input2=1)
+
+test(1) # 動用到預設值
+```
+
+## pack to tuple
+
+```{python}
+def test2(input1,*input3):
+  print('input1 is ', input1)
+  print('input3 is ', input3)
+  return None
+ 
+test2(1,1.2,4,5)
+test2(1,[1.2,4],5)
+test2(["1","b"],{2,5,7},10)
+```
+
+```{python}
+input1, *input3=(1, 1.2, 4, 5)
+input1, *input3=(1,[1.2,4],5)
+input1, *input3=(["1","b"],{2,5,7},10)
+```
+
+```{python}
+x, *seq, y=(1,2,3,4,5)
+```
+
+```{python}
+def f(x, *seq, y):
+    print("x is: ", x)
+    print("seq is: ", seq)
+    print("y is: ", y)
+    return None
+
+f(1, 2, 3, 4, 5)
+f(1, 2, 3, 4, y=5)
+```
+
+```{python}
+a, b, c=(1,3,4)
+a, b, c=(*[1,3],4)
+a, b, c=(1,*[3,4])
+a, b, c=(*[1,3,4])
+
+```
+
+```{python}
+utility_cobb_douglas(1,1,alpha=0.5,beta=0.5)
+```
+
+```{python}
+x, y, **parameters  =(1,1,alpha=0.5,beta=0.5)
+```
+
+```{python}
+parameters={
+"alpha": 0.5,
+"beta": 0.5
+}
+```
+
+
+
+```{python}
+def utility_cobb_douglas(x, y, **parameters):
+  alpha=parameters["alpha"]
+  beta=parameters["beta"]
+  utilValue = x**alpha*y**beta 
+  return utilValue # 傳回output值
+
+```
+
+# local global environment
+
+```{python}
+obj2
+obj3
+::
+::
+# call objX=utility_cobb_douglass(1,1,alpha=0.5,beta=0.5)
+  x,y,alpha,beta=(1,1,0.5,0.5)
+  utilValue = x**alpha*y**beta 
+  return utilValue
+
+```
+
+```{python}
+global1=[1,3,[4,5]]
+
+def funtest(x):
+  x[0]="a"
+  y=x[:]
+  y[1]="b"
+  y[2][1]="c"
+  return None
+
+global1
+funtest(global1) #call
+global1
+```
+
+# executive environment of funtest(global1)
+```{python}
+global1=[1,3,[4,5]]
+
+global1
+
+# enter executive environment
+x=global1
+x[0]="a"
+y=x[:]
+y[1]="b"
+y[2][1]="c"
+
+# kill executive environment objects
+del x, y
+global1
+```
+
+
+```{python}
+global1=[1,3,[4,5]]
+def funtest(x):
+  x[0]="a"
+  y=x[:]
+  y[1]="b"
+  y[2][1]="c"
+  return None
+
+global1
+funtest(global1)
+global1
+```
+
+
+```{python}
+def utility_cobb_douglass(x,y,alpha=1,beta=3):
+  
+  utilValue = x**alpha*y**beta*obj3 # 程序產生output值
+  
+  return utilValue # 傳回output值
+
+utility_cobb_douglass(1,1,0.5,0.5)
+utility_cobb_douglass(1,1)
+```
+
+
+
+```{python}
+global1=[1,3,[4,5]]
+funtest(global1.copy())
+global1
+
+import copy 
+global1=[1,3,[4,5]]
+funtest(copy.deepcopy(global1))
+global1
+```
+
+
+```{python}
+def test(x,y):
+  return x+y+obj3
+
+obj3=5
+
+test(1,4)
+```
+
