@@ -132,3 +132,138 @@ for i in range(len(listA)):
 
 ```
 
+```{r}
+View(py$danceInfo)
+```
+
+```{r}
+a <- c(1,3,5)
+```
+
+```{python}
+r.a
+```
+
+## 展演場次
+
+```{python}
+lenList = list([])
+_sum_=0
+for i in range(len(danceInfo)):
+     lenList.append(len(danceInfo[i]["showInfo"]))
+     _sum_ += len(danceInfo[i]["showInfo"])
+     
+lenList
+sum(lenList) # function
+_sum_
+```
+
+### sum
+
+```{python}
+import random
+a=[random.randint(0,100) for i in range(0,12)]
+a
+```
+
+```{python}
+sum=0
+for i in range(len(a)):
+    sum += a[i] # sum.iadd(a[i])
+
+print(sum)
+```
+
+## 4.1.1
+
+```{python}
+dict_example = {
+    'list': [1, 3, -7, 4, 9, -5, 4],
+    'dict': {
+        "日期": [2001,2002,2003],
+        "金額": [21000,33000,45880]
+        },
+    'matrix': [
+        [2,5,4],
+        [2,-1,3]]
+}
+
+
+print("list")
+x=dict_example["list"]
+x
+[i for i in x]
+[i for i in range(len(x))]
+[i for i in enumerate(x)] # 產生tuple iterates
+```
+
+
+```{python}
+M=dict_example['matrix']
+M
+```
+
+$$\sum_{ij}M_{ij}$$
+
+$$\sum_i \sum_j M_{ij}$$
+
+
+1.
+$$i=0,\ \sum_j M_{0j}$$
+```{python}
+i=0
+_sum_=0
+for j in range(len(M[i])):
+    _sum_ += M[i][j]
+
+_sum_
+```
+
+```{python}
+a = 0
+for j in range(len(M[0])):
+    a += M[0][j]
+
+for j in range(len(M[1])):
+    a += M[1][j]
+    
+a
+```
+
+i=0
+for j in range(len(M[i])):
+    a += M[i][j]
+
+i=1
+for j in range(len(M[i])):
+    a += M[i][j]
+
+
+```{python}
+a = 0
+for i in range(len(M)): #知道有幾row
+    for j in range(len(M[i])): #取出第一個ROW
+        a += M[i][j]
+
+print (a)
+```
+
+
+
+
+M[0]=[2,5,4]
+
+range(len(M[0])): 0,1,2
+
+i=0: 
+   a= 0 + M[0][i]= 0+ M[0][0]=0+2=2
+   
+i=1:
+   a= 2 + M[0][i]= 2+ M[0][1]=2+5=7
+   
+i=2:
+   a= 7 + M[0][i]= 7+ M[0][2]=7+4=11
+   
+a (11)
+  
+
