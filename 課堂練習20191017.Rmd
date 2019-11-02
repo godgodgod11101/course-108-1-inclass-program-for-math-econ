@@ -265,5 +265,192 @@ i=2:
    a= 7 + M[0][i]= 7+ M[0][2]=7+4=11
    
 a (11)
+
   
+```{python}
+covM=[
+[1,3,5],
+[3,1,7],
+[5,7,1]
+]
+```
+
+$$\sum_{i=0}^2 \sum_{j=0,1,2, j<=i} covM_{ij}$$
+
+解答一
+```{python}
+a=0
+for i in range(len(covM)):    
+    for j in range(len(covM[i])):
+        if j<=i:
+          a += covM[i][j]
+
+print(a)
+```
+
+解答二(*)
+```{python}
+a=0
+for i in range(len(covM)):
+    for j in range(0,i+1):
+        a+= covM[i][j]
+
+a
+```
+
+解答三
+```{python}
+a=0
+for i in range(len(covM)):
+    for j in range(len(covM[i])):
+        if j>i:
+            continue
+        a+= covM[i][j]
+
+a
+```
+
+
+```{python}
+a=0
+for i in range(len(covM)):
+    for j in range(len(covM[i])):
+        if covM[i][j] <= 3:
+            continue
+        a+= covM[i][j]
+
+a
+```
+
+### iterator choice
+
+```{python}
+listA=[[1,3,5],[2,4,6]]
+sum=0
+for i in range(len(listA)):
+    for i in range(len(listA[i])):
+        sum +=listA[i][i]
+
+print(sum)
+```
+
+## while-loops
+
+```{python}
+x=dict_example['list']
+x
+```
+
+```{python}
+i=0
+while x[i]>0:
+    i+=1
+
+print(x[i])
+```
+
+
+factorial
+```{python}
+n=5
+downByOne=n-1
+while downByOne > 0:
+    n *= downByOne
+    downByOne -= 1
+
+print(n)
+```
+
+```{python}
+n=5
+downByOne=n-1
+if downByOne > 0:
+    n=n*downByOne # 
+    downByOne=downByOne-1
+
+if downByOne > 0:
+    n=n*downByOne # 
+    downByOne=downByOne-1
+
+if downByOne > 0:
+    n=n*downByOne # 
+    downByOne=downByOne-1
+
+if downByOne > 0:
+    n=n*downByOne # 
+    downByOne=downByOne-1
+
+if downByOne > 0:
+    n=n*downByOne # 
+    downByOne=downByOne-1
+```
+
+```{python}
+n=5
+downByOne=n-1
+while downByOne > 0:
+    n *= downByOne # 
+    downByOne -= 1
+
+print(n)
+```
+
+## Newton's method
+
+```{python}
+p=lambda x: x**3-x**2-1
+dp=lambda x: 3*x**2-2*x
+
+x0=1
+x1=x0-p(x0)/dp(x0)
+p(x1)
+
+x2=x1-p(x1)/dp(x1)
+p(x2)
+```
+
+```{python}
+x=1
+if abs(p(x))>1e-10:
+    x=x-p(x)/dp(x)
+    p(x)
+
+if abs(p(x))>1e-10:
+    x=x-p(x)/dp(x)
+    p(x)
+
+if abs(p(x))>1e-10:
+    x=x-p(x)/dp(x)
+    p(x)
+
+if abs(p(x))>1e-10:
+    x=x-p(x)/dp(x)
+    p(x)
+
+```
+
+```{python}
+x=1 
+while abs(p(x))>1e-10:
+    x -= p(x)/dp(x)
+    #p(x)
+
+x
+p(x)
+```
+
+```{python}
+p=lambda x: x**3-x**2-1
+dp=lambda x: 3*x**2-2*x
+
+x=1
+count=0 # safe guard to avoid infinite loops
+while abs(p(x))>1e-10 and count <= 100:
+    x -= p(x)/dp(x)
+    count += 1
+    #p(x)
+
+x
+p(x)
+```
 
