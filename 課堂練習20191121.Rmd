@@ -293,3 +293,73 @@ y_hat.T@e
 (e.T@e)**(1/2)
 ```
 
+## 範例：
+
+1. 
+$f(z)$為常態分配pdf, 自定f函數(hint: `np.pi`, `np.exp()`)
+
+```{python}
+def normalPdf(x,mean=0,sigma=1):
+    z=-(((x-mean)/sigma)**2)/2
+    pdfvalue=np.exp(z)/((2*np.pi*sigma**2)**(0.5))
+    return(pdfvalue)
+
+
+```
+
+```{python}
+normalPdf(1)
+normalPdf(0)
+normalPdf([2,3]) # not a vectorized function
+```
+
+2. vectorized normalPdf
+```{python}
+vec_normalPdf=np.vectorize(normalPdf)
+```
+
+```{python}
+vec_normalPdf([2,3])
+```
+
+
+3. 
+$\epsilon_i=y_i-\hat{y}_i$
+假設
+$$
+\epsilon_i\stackrel{iid}{~} N(0,1)
+$$
+令$\epsilon_i=y_i-\hat{y}_i$, 算每個$\epsilon_i$的pdf
+
+```{python}
+y=np.array([[2,3,4,6]]).T
+x=np.array([
+[1,1,1,1],
+[0,-2,4,7]
+]
+).T
+
+y
+x
+```
+
+```{python}
+yhat=x@inv(x.T@x)@x.T@y
+e=y-yhat
+```
+
+```{python}
+e_pdf=vec_normalPdf(e)
+```
+
+4. 取其$log$再相加
+
+```{python}
+np.log(e_pdf).sum()
+```
+
+```{python}
+beta_hat=inv(x.T@x)@x.T@y
+beta_hat
+```
+
