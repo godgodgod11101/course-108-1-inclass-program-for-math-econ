@@ -125,7 +125,7 @@ y
 ```{python}
 import scipy.stats as stat
 bin_1=stat.binom(n=100,p=0.1)
-bin_3=stat.binom(n=100,p=0.
+bin_3=stat.binom(n=100,p=0.3)
 
 like_1=bin_1.pmf(50)
 like_3=bin_3.pmf(50)
@@ -133,3 +133,134 @@ like_3=bin_3.pmf(50)
 like_1
 like_3
 ```
+
+```{python}
+# scaled posterior
+posterior_sc_1=like_1*0.3
+posterior_sc_3=like_3*0.7
+
+posterior_sc_1
+posterior_sc_3
+
+sum13=posterior_sc_1+posterior_sc_3
+posterior_1 = posterior_sc_1/sum13
+posterior_3 = posterior_sc_3/sum13
+
+posterior_1
+posterior_3
+```
+
+## OOP
+
+```{python}
+class YellowRectangle:
+    """ A Python object that describes the properties of a yellow rectangle """
+    color="yellow" 
+    
+    def __init__(self, width, height):
+        self.width = width
+        self.height = height
+    
+    def __repr__(self):
+        return "Rectangle(width={w}, height={h})".format(h=self.height, w=self.width)
+        
+    def compute_area(self):
+        return self.width * self.height
+        
+
+```
+
+```{python}
+yr1=YellowRectangle(3,5)
+
+yr1.color
+yr1.height
+yr1.width
+```
+
+```{python}
+yr1
+```
+
+```{python}
+type(yr1)
+```
+
+```{python}
+isinstance(yr1,YellowRectangle)
+isinstance(YellowRectangle,YellowRectangle)
+```
+
+###
+  - attrs: surname, firstname, gender
+```{python}
+class linFamily:
+    surname="林"
+    def __init__(self,firstname,gender):
+        self.firstname=firstname
+        self.gender=gender
+    def __repr__(self):
+        return "我叫{a}{b}性別{c}".format(a=self.surname,b=self.firstname,c=self.gender)
+
+        
+```
+
+```{python}
+member1=linFamily("小明","男")
+
+isinstance(member1, linFamily)
+member1
+member1.firstname
+member1.surname
+member1.gender
+```
+
+
+```{python}
+import numpy as np
+from numpy.linalg import inv, det
+class modelX:
+    type="linear"
+    def fit(self,X,y):
+        self.coef=inv(X.T@X)@X.T@y
+        self.fitted=X@inv(X.T@X)@X.T@y
+
+
+```
+
+```{python}
+import numpy as np
+X=np.column_stack(
+ (np.ones(100),np.random.rand(100))
+)
+X 
+y=np.random.rand(100)
+y.shape=(100,1)
+
+model0=modelX()
+model0.fit(X,y)
+model0.coef
+model0.fitted
+```
+
+
+```{python}
+class modelY:
+    type="linear"
+    def fit(self,X,y):
+        coef=inv(X.T@X)@X.T@y
+        self.fitted=X@inv(X.T@X)@X.T@y
+        return coef
+
+
+```
+
+
+```{python}
+model1=modelY()
+model1.fit(X,y)
+model1.fitted
+
+beta_coef=model1.fit(X,y)
+```
+
