@@ -1,0 +1,95 @@
+---
+title: "課堂練習"
+date: "9/12/2019"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(reticulate)
+use_python("/anaconda3/envs/m-team/bin/python",
+           required = T)
+use_condaenv("m-team", required = T)
+```
+
+## random state
+
+```{python}
+import numpy.random as rs_rv
+
+rs_rv.standard_normal(size=(10,2)) # RandomState所產生的10個standard normal random number
+```
+
+```{python}
+sample_1=rs_rv.choice(
+  a=[1,0],
+  size=100,
+  replace=True,
+  p=[0.1,0.9]
+)
+
+```
+
+```{python}
+sample_3=rs_rv.choice(
+  a=[1,0],
+  size=100,
+  replace=True,
+  p=[0.3,0.7]
+)
+```
+
+## generator 
+
+```{python}
+from numpy.random import default_rng
+g_rv=default_rng() #  g_rv為Generator object
+g_rv.standard_normal(size=10) # Generator所產生的standard normal random number
+```
+
+```{python}
+gSample_3=g_rv.choice(
+  a=[1,0],
+  size=100,
+  replace=True,
+  p=[0.3,0.7]
+)
+gSample_1=g_rv.choice(
+  a=[1,0],
+  size=100,
+  replace=True,
+  p=[0.1,0.9]
+)
+```
+
+## seed
+
+```{python}
+rs_rv.seed(2019)
+rs_rv.standard_normal(size=10)
+```
+
+```{python}
+g_rv=default_rng(2019) # 需要在建立Generator obj時就設好
+g_rv.standard_normal(size=10)
+```
+
+假設隨機樣本...值間有如下的關係：
+```{python}
+
+```
+
+## Probability Mass Functions
+
+```{python}
+import scipy.stats as stat
+bin_1=stat.binom(n=100,p=0.1)
+bin_1.pmf(50)
+
+bin_3=stat.binom(n=100,p=0.3)
+bin_3.pmf(50)
+```
+
