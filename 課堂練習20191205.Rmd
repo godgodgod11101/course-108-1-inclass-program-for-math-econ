@@ -84,12 +84,52 @@ g_rv.standard_normal(size=10)
 
 ## Probability Mass Functions
 
+Suppose there are only two possible  p values: 0.1 and 0.3. What would be the likelihood value of a sample with 50 heads and 50 tails?
 ```{python}
 import scipy.stats as stat
 bin_1=stat.binom(n=100,p=0.1)
-bin_1.pmf(50)
+bin_1.pmf(50) # Likelihood(p=0.1)
 
 bin_3=stat.binom(n=100,p=0.3)
-bin_3.pmf(50)
+bin_3.pmf(50) # Likelihood(p=0.3)
 ```
 
+```{python}
+like_1=bin_1.pmf(50)
+like_3=bin_3.pmf(50)
+
+like_1
+like_3
+```
+
+### 
+
+```{python}
+from numpy.random import default_rng
+g_rv=default_rng(2019)
+
+# x=g_rv.standard_normal(size=100)
+# e=g_rv.standard_normal(size=100)
+(x,e)=g_rv.standard_normal(
+  size=(2,100)
+)
+
+y=0.1*x+0.33*e
+x
+y
+
+```
+
+## 7.4.2
+
+```{python}
+import scipy.stats as stat
+bin_1=stat.binom(n=100,p=0.1)
+bin_3=stat.binom(n=100,p=0.
+
+like_1=bin_1.pmf(50)
+like_3=bin_3.pmf(50)
+
+like_1
+like_3
+```
