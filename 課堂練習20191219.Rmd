@@ -15,7 +15,7 @@ use_python("/anaconda3/envs/m-team/bin/python",
 use_condaenv("m-team", required = T)
 ```
 
-```{python}
+```{python setup}
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -125,8 +125,20 @@ class oneHundredSample:
 sample1=oneHundredSample()
 ```
 
-```{python}
+```{python mySource}
+from numpy.random import default_rng
 class mySample:
+  g_rv=default_rng()
+  
+  def __init__(self,sampleSize):
+      self.sampleSize=sampleSize
+      (self.x,self.e)=\
+      self.g_rv.standard_normal(
+        size=(2,self.sampleSize))
+        
+      self.y=0.1*self.x+0.33*self.e
+
+
 ```
 
 ```{python}
@@ -139,5 +151,219 @@ class simpleLinearRegressionSample:
 
 ```{python}
 sample_200=simpleLinearRegressSample(200,constant=2,slope=0.3)
+```
+
+
+```{python}
+
+```
+
+Linear regression
+
+```{python}
+class linearRegression:
+
+```
+
+```{python class1}
+lr1=linearRegression()
+
+lr1.data(beta_coefficients, sampleSize)
+# self.data
+```
+
+```{python dataExperiment}
+from numpy.random import default_rng
+
+beta_coeficients = np.array(
+[0.2,0.3,-1.8]
+)
+sampleSize=500
+g_rv=default_rng()
+eX=g_rv.standard_normal(\
+  size=(1+beta_coeficients.shape[0],\
+  sampleSize)) # 產生1+numBeta x sampleSize的rv matrix
+e=eX[0,:]
+X=eX[1:,:]
+beta=beta_coeficients.reshape(
+ 1,beta_coeficients.shape[0])
+y=beta@X+e
+```
+
+```{python}
+def data(beta_coeficients,sampleSize):
+    g_rv=default_rng()
+    eX=g_rv.standard_normal(\
+      size=(1+beta_coeficients.shape[0],\
+      sampleSize)) # 產生1+numBeta x sampleSize的rv matrix
+    e=eX[0,:]
+    X=eX[1:,:]
+    beta=beta_coeficients.reshape(
+     1,beta_coeficients.shape[0])
+    y=beta@X+e
+    
+    return (y,X)
+    
+
+beta_coeficients = np.array(
+[0.2,0.3,-1.8]
+)
+sampleSize=500
+(y,X)=data(beta_coeficients,sampleSize)
+```
+
+
+lr1=linearRegression()
+
+lr1.data(beta_coefficients, sampleSize)
+# self.data
+```{python linearRegression class start}
+class linearRegression:
+    def dataGen(self,beta_coefficients, sampleSize):
+        g_rv=default_rng()
+        eX=g_rv.standard_normal(\
+        size=(1+beta_coeficients.shape[0],\
+            sampleSize)) # 產生1+numBeta x sampleSize的rv matrix
+        e=eX[0,:]
+        X=eX[1:,:]
+        beta=beta_coeficients.reshape(
+          1,beta_coeficients.shape[0])
+        y=beta@X+e
+        self.data=(y,X)
+        return self
+        
+    def split(self,testSize):
+        (y,X)=self.data
+        sampleSize=y.shape[1]
+        index=np.arange(sampleSize)
+        np.random.shuffle(index)
+        cutOff=round(testSize*sampleSize)
+        testIndex=index[:cutOff]
+        trainIndex=index[cutOff:]
+        y_test=y[:,testIndex]
+        y_train=y[:,trainIndex]
+        X_test=X[:,testIndex]
+        X_train=X[:,trainIndex]
+        test_data=(y_test,X_test)
+        train_data=(y_train,X_train)
+        self.test_data=test_data
+        self.train_data=train_data
+        return self
+
+
+beta_coefficients = np.array(
+[0.2,0.3,-1.8]
+)
+sampleSize=500
+lr1=linearRegression() # 創新instance
+lr1.dataGen(beta_coefficients,sampleSize) # 使用dataGen instance method給予此instance data attribute
+lr1.split(0.3)
+```
+
+```{python}
+lr1.split(testSize)
+# self.train_data self.test_data
+```
+
+
+```{python split function}
+def split(data,testSize):
+    (y,X)=data
+    sampleSize=y.shape[1]
+    index=np.arange(sampleSize)
+    np.random.shuffle(index)
+    cutOff=round(testSize*sampleSize)
+    testIndex=index[:cutOff]
+    trainIndex=index[cutOff:]
+    y_test=y[:,testIndex]
+    y_train=y[:,trainIndex]
+    X_test=X[:,testIndex]
+    X_train=X[:,trainIndex]
+    test_data=(y_test,X_test)
+    train_data=(y_train,X_train)
+    return (test_data,train_data)
+
+
+split(lr1.data,0.3)
+```
+
+##
+
+```{python}
+class linearRegression:
+    def dataGen(self,beta_coefficients, sampleSize):
+        g_rv=default_rng()
+        eX=g_rv.standard_normal(\
+        size=(1+beta_coeficients.shape[0],\
+            sampleSize)) # 產生1+numBeta x sampleSize的rv matrix
+        e=eX[0,:]
+        X=eX[1:,:]
+        beta=beta_coeficients.reshape(
+          1,beta_coeficients.shape[0])
+        y=beta@X+e
+        self.data=(y,X)
+        return self  
+    def split(self,testSize):
+        (y,X)=self.data
+        sampleSize=y.shape[1]
+        index=np.arange(sampleSize)
+        np.random.shuffle(index)
+        cutOff=round(testSize*sampleSize)
+        testIndex=index[:cutOff]
+        trainIndex=index[cutOff:]
+        y_test=y[:,testIndex]
+        y_train=y[:,trainIndex]
+        X_test=X[:,testIndex]
+        X_train=X[:,trainIndex]
+        test_data=(y_test,X_test)
+        train_data=(y_train,X_train)
+        self.test_data=test_data
+        self.train_data=train_data
+        return self
+
+```
+
+```{python}
+beta_coefficients = np.array(
+[0.2,0.3,-1.8]
+)
+sampleSize=500
+lr1=linearRegression() # 創新instance
+lr1.dataGen(beta_coefficients,sampleSize) # 使用dataGen instance method給予此instance data attribute
+lr1.split(0.3)
+```
+
+
+```{python}
+lr1.split(testSize)
+# self.train_data self.test_data
+
+lr1.fit()
+# OLS
+#  self.betaHat
+
+lr1.predict()
+# self.mse
+```
+
+
+```
+# data
+
+# split test_data , train_data
+
+# fit on train_data
+
+# predict on test_dat
+
+```
+
+```{python, eval=F}
+ml1=linearRegression()
+ml1.split()
+ml1.fit()
+ml1.performance()
+ml1.result
+
 ```
 
