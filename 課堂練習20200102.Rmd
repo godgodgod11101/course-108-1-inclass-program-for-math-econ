@@ -1,0 +1,207 @@
+---
+title: "課堂練習"
+date: "9/12/2019"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(reticulate)
+use_python("/anaconda3/envs/m-team/bin/python",
+           required = T)
+use_condaenv("m-team", required = T)
+```
+
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+import math # 用math.mathfunction：non vectorized function
+from numpy.random import default_rng
+# 8.8 randon number generator
+# g_rv = default_rng() # to initiate a generator object
+from scipy.linalg import inv, solve, det, eig
+
+```
+
+
+```{python}
+import datetime as dt
+class inclassPractice:
+    def __init__(self,date):
+        self.date=date
+    def __repr__(self):
+        return "課堂練習："+self.date.strftime("%Y-%m-%d")
+
+
+```
+
+```{python}
+today=dt.datetime(2020,1,2)
+pr=inclassPractice(today)
+pr.date
+pr
+```
+
+##
+
+```{python}
+class Example:
+    v0=2
+    def __init__(self,v1=0):
+        self.v1=v1
+
+```
+
+
+```{python}
+inst1=Example()
+inst2=Example(2)
+```
+
+```{python}
+inst1.v1
+inst1.v1=4
+inst1.v1
+
+inst1.v3=5
+inst1.v3
+
+inst2.v3
+```
+
+## modify attribute of a class
+
+```{python}
+inst1=Example()
+inst2=Example(2)
+
+inst1.v0
+inst2.v0
+
+Example.v0=2 # 修改class的attribute
+
+inst1.v0
+inst2.v0
+```
+
+```{python}
+inst1.v0=6 # 修改instance的attribute
+inst1.v0
+inst2.v0
+```
+
+## modify / append method
+
+```{python}
+def m0(self):  
+    return self.v0+self.v1
+
+Example.m0=m0
+
+inst1.m0()
+inst2.m0()
+```
+
+```{python}
+def f(x0,x1):
+    return abs(x0)*(x1**x0)
+
+```
+
+f(1,1)的derivatives (Jacobian)
+
+```{python}
+f11=f(1,1)
+e=1e-15
+f1c1=f(1+e,1)
+df1 = (f1c1-f11)/e 
+f11c=f(1,1+e)
+df2 = (f11c-f11)/e
+```
+
+```{python}
+g=0.001
+f(1-g*1.11,1-g*1.11)
+```
+
+
+
+
+## Data gen
+
+```{python}
+def feature_poly(x,k):
+    X=x**0
+    for i in range(k-1):
+      X=np.hstack(
+          (X,x**(i+1))
+          )
+    return X
+
+```
+
+
+
+## matplotlib
+
+```{python}
+import matplotlib.pyplot as plt
+```
+
+```{python}
+fig, ax=plt.subplots(2,2)
+```
+
+```{python}
+x=np.arange(0,10)
+# 對每個subplot使用.plot method
+ax[0,0].plot(x, x, label='linear')
+ax[0,1].plot(x, x**2, label='quadratic')
+ax[1,0].plot(x, x**3, label='cubic')
+ax[1,1].plot(x, x**4, label='power 4')
+
+plt.show()
+```
+
+```{python}
+
+plt.figure() # 創一個current figure
+plt.subplot(221) # 由current figure的 2 x 2 subplots裡，指定第1個subplot為current subplot
+plt.plot(x, x, label='linear') # plt.<件圖函數>只對current subplot有效
+
+## current subplot改為222
+plt.subplot(222)
+plt.plot(x, x**2, label='quadratic')
+
+## current subplot改為223
+plt.subplot(223)
+plt.plot(x, x**3, label='cubic')
+
+## current subplot改為224
+plt.subplot(224)
+plt.plot(x, x**4, label='power 4')
+
+plt.show()
+```
+
+```{python}
+fig, ax=plt.subplots(1,1)
+```
+
+```{python}
+ax.plot(x,x,"o-r")
+plt.show()
+
+```
+
+
+```{python}
+sp00=ax.spines['left']
+sp00.set_position
+plt.show()
+```
+

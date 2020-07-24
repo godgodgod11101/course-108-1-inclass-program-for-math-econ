@@ -1,0 +1,369 @@
+---
+title: "課堂練習"
+date: "9/12/2019"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(reticulate)
+use_python("/anaconda3/envs/m-team/bin/python",
+           required = T)
+use_condaenv("m-team", required = T)
+```
+
+```{python setup}
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+import math # 用math.mathfunction：non vectorized function
+from numpy.random import default_rng
+# 8.8 randon number generator
+# g_rv = defaut_rng() # to initiate a generator object
+from scipy.linalg import inv, solve, det, eig
+
+```
+
+```{python}
+class YellowRectangle:
+    """ A Python object that describes the properties of a yellow rectangle """
+    color="yellow" 
+    
+    def __init__(self, width, height):
+        self.width = width
+        self.height = height
+    
+    def __repr__(self):
+        return "Rectangle(width={w}, height={h})".format(h=self.height, w=self.width)
+        
+    def compute_area(self):
+        return self.width * self.height
+```
+
+```{python}
+yr1=YellowRectangle(2,5)
+yr1.compute_area()
+```
+
+```{python}
+class linFamily:
+    surname="林"
+    def __init__(self,firstname,gender):
+        self.firstname=firstname
+        self.gender=gender
+    def __repr__(self):
+        return "我叫{a}{b}性別{c}".format(a=self.surname,b=self.firstname,c=self.gender)
+
+        
+```
+
+```{python}
+lin1=linFamily("小明","男")
+lin1
+```
+
+```{python}
+class Family:
+    surname=""
+    def __init__(self,firstname,gender):
+        self.firstname=firstname
+        self.gender=gender
+    def __repr__(self):
+        return "我叫{a}{b}性別{c}".format(a=self.surname,b=self.firstname,c=self.gender)
+    
+    def new(self, cls, newsurname):
+        cls["surname"]=newsurname
+        return cls
+
+
+```
+
+```{python}
+# 產生一個新的class
+linFamily=Family.new("林") 
+
+# 產生上述class的新的instance
+lin1=linFamily("小明","男")
+
+lin1.firstname
+lin1.surname
+
+```
+
+```{python}
+member1=Family("小明","男")
+member1.surname
+cls={
+    'surname': '林'
+}
+surname="黃"
+member1.new(cls, surname)
+cls
+member1.surname
+```
+
+
+### one hundred sample
+
+```{python}
+from numpy.random import default_rng
+class oneHundredSample:
+  g_rv=default_rng()
+  (x,e)=g_rv.standard_normal(
+      size=(2,100)
+      )
+  y=0.1*x+0.33*e
+  
+
+```
+
+
+```{python}
+sample1=oneHundredSample()
+```
+
+```{python mySource}
+from numpy.random import default_rng
+class mySample:
+  g_rv=default_rng()
+  
+  def __init__(self,sampleSize):
+      self.sampleSize=sampleSize
+      (self.x,self.e)=\
+      self.g_rv.standard_normal(
+        size=(2,self.sampleSize))
+        
+      self.y=0.1*self.x+0.33*self.e
+
+
+```
+
+```{python}
+sample1_150=mySample(150)
+```
+
+```{python}
+class simpleLinearRegressionSample:
+```
+
+```{python}
+sample_200=simpleLinearRegressSample(200,constant=2,slope=0.3)
+```
+
+
+```{python}
+
+```
+
+Linear regression
+
+```{python}
+class linearRegression:
+
+```
+
+```{python class1}
+lr1=linearRegression()
+
+lr1.data(beta_coefficients, sampleSize)
+# self.data
+```
+
+```{python dataExperiment}
+from numpy.random import default_rng
+
+beta_coeficients = np.array(
+[0.2,0.3,-1.8]
+)
+sampleSize=500
+g_rv=default_rng()
+eX=g_rv.standard_normal(\
+  size=(1+beta_coeficients.shape[0],\
+  sampleSize)) # 產生1+numBeta x sampleSize的rv matrix
+e=eX[0,:]
+X=eX[1:,:]
+beta=beta_coeficients.reshape(
+ 1,beta_coeficients.shape[0])
+y=beta@X+e
+```
+
+```{python}
+def data(beta_coeficients,sampleSize):
+    g_rv=default_rng()
+    eX=g_rv.standard_normal(\
+      size=(1+beta_coeficients.shape[0],\
+      sampleSize)) # 產生1+numBeta x sampleSize的rv matrix
+    e=eX[0,:]
+    X=eX[1:,:]
+    beta=beta_coeficients.reshape(
+     1,beta_coeficients.shape[0])
+    y=beta@X+e
+    
+    return (y,X)
+    
+
+beta_coeficients = np.array(
+[0.2,0.3,-1.8]
+)
+sampleSize=500
+(y,X)=data(beta_coeficients,sampleSize)
+```
+
+
+lr1=linearRegression()
+
+lr1.data(beta_coefficients, sampleSize)
+# self.data
+```{python linearRegression class start}
+class linearRegression:
+    def dataGen(self,beta_coefficients, sampleSize):
+        g_rv=default_rng()
+        eX=g_rv.standard_normal(\
+        size=(1+beta_coeficients.shape[0],\
+            sampleSize)) # 產生1+numBeta x sampleSize的rv matrix
+        e=eX[0,:]
+        X=eX[1:,:]
+        beta=beta_coeficients.reshape(
+          1,beta_coeficients.shape[0])
+        y=beta@X+e
+        self.data=(y,X)
+        return self
+        
+    def split(self,testSize):
+        (y,X)=self.data
+        sampleSize=y.shape[1]
+        index=np.arange(sampleSize)
+        np.random.shuffle(index)
+        cutOff=round(testSize*sampleSize)
+        testIndex=index[:cutOff]
+        trainIndex=index[cutOff:]
+        y_test=y[:,testIndex]
+        y_train=y[:,trainIndex]
+        X_test=X[:,testIndex]
+        X_train=X[:,trainIndex]
+        test_data=(y_test,X_test)
+        train_data=(y_train,X_train)
+        self.test_data=test_data
+        self.train_data=train_data
+        return self
+
+
+beta_coefficients = np.array(
+[0.2,0.3,-1.8]
+)
+sampleSize=500
+lr1=linearRegression() # 創新instance
+lr1.dataGen(beta_coefficients,sampleSize) # 使用dataGen instance method給予此instance data attribute
+lr1.split(0.3)
+```
+
+```{python}
+lr1.split(testSize)
+# self.train_data self.test_data
+```
+
+
+```{python split function}
+def split(data,testSize):
+    (y,X)=data
+    sampleSize=y.shape[1]
+    index=np.arange(sampleSize)
+    np.random.shuffle(index)
+    cutOff=round(testSize*sampleSize)
+    testIndex=index[:cutOff]
+    trainIndex=index[cutOff:]
+    y_test=y[:,testIndex]
+    y_train=y[:,trainIndex]
+    X_test=X[:,testIndex]
+    X_train=X[:,trainIndex]
+    test_data=(y_test,X_test)
+    train_data=(y_train,X_train)
+    return (test_data,train_data)
+
+
+split(lr1.data,0.3)
+```
+
+##
+
+```{python}
+class linearRegression:
+    def dataGen(self,beta_coefficients, sampleSize):
+        g_rv=default_rng()
+        eX=g_rv.standard_normal(\
+        size=(1+beta_coeficients.shape[0],\
+            sampleSize)) # 產生1+numBeta x sampleSize的rv matrix
+        e=eX[0,:]
+        X=eX[1:,:]
+        beta=beta_coeficients.reshape(
+          1,beta_coeficients.shape[0])
+        y=beta@X+e
+        self.data=(y,X)
+        return self  
+    def split(self,testSize):
+        (y,X)=self.data
+        sampleSize=y.shape[1]
+        index=np.arange(sampleSize)
+        np.random.shuffle(index)
+        cutOff=round(testSize*sampleSize)
+        testIndex=index[:cutOff]
+        trainIndex=index[cutOff:]
+        y_test=y[:,testIndex]
+        y_train=y[:,trainIndex]
+        X_test=X[:,testIndex]
+        X_train=X[:,trainIndex]
+        test_data=(y_test,X_test)
+        train_data=(y_train,X_train)
+        self.test_data=test_data
+        self.train_data=train_data
+        return self
+
+```
+
+```{python}
+beta_coefficients = np.array(
+[0.2,0.3,-1.8]
+)
+sampleSize=500
+lr1=linearRegression() # 創新instance
+lr1.dataGen(beta_coefficients,sampleSize) # 使用dataGen instance method給予此instance data attribute
+lr1.split(0.3)
+```
+
+
+```{python}
+lr1.split(testSize)
+# self.train_data self.test_data
+
+lr1.fit()
+# OLS
+#  self.betaHat
+
+lr1.predict()
+# self.mse
+```
+
+
+```
+# data
+
+# split test_data , train_data
+
+# fit on train_data
+
+# predict on test_dat
+
+```
+
+```{python, eval=F}
+ml1=linearRegression()
+ml1.split()
+ml1.fit()
+ml1.performance()
+ml1.result
+
+```
+

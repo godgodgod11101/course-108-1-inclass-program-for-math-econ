@@ -1,0 +1,270 @@
+---
+title: "課堂練習"
+date: "9/12/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(reticulate)
+use_python("/anaconda3/envs/m-team/bin/python",
+           required = T)
+use_condaenv("m-team", required = T)
+```
+
+```{python}
+a=5
+type(a) # check class type
+```
+
+```{python}
+range
+```
+
+```{r,eval=FALSE}
+# conda安裝方式
+conda_install("m-team", # 沙盒環境名稱
+              c("numpy","pandas")) # 要安裝的modules
+```
+
+```{python}
+string = "你好"
+string2 = '我很好' # 用單引號也可以
+type(string)
+numInteger = 3
+type(numInteger)
+#len(numInteger)
+numFloat = 3.
+type(numFloat)
+#len(numFloat)
+```
+
+```{python}
+logiT=True
+type(logiT)
+logiF=False
+type(logiF)
+```
+
+```{python}
+logiT+logiT+logiF
+```
+
+```{python}
+list1=[1,3,5]
+list2=[1,"b",True,(1,True,["A"])]
+len(list1)
+len(list2)
+```
+
+```{python}
+listA=[1,2,True]
+listA
+type(listA)
+listB=[1,["a","b"],True] # nested list
+listB
+type(listB)
+```
+
+```{python}
+var1, var2, var3 = listA
+var1
+var2
+var3
+```
+
+```{python}
+print(listA)
+
+a,*b = listA
+a; type(a)
+b; type(b)
+```
+
+```{python}
+*a, b = listA
+a; type(a)
+b; type(b)
+```
+
+
+```{python}
+gradeTuple=("小明",88,72)
+name, *grade = gradeTuple
+```
+
+```{python}
+name
+grade
+type(grade)
+```
+
+```{python}
+gradeTuple2=("小明",88,72,"男")
+name, *grade, gender=gradeTuple2
+```
+
+```{python}
+name
+grade
+gender
+```
+
+```{python}
+setD={1,"a",(1,4)}
+type(setD)
+print(setD)
+setE={True,False}
+print(setE)
+setF={1,"b",[1,4]}
+```
+
+```{python}
+setG={1,"b",(1,4,(5,8))}
+print(setG)
+setH={1,"b",(1,4,[5,8])}
+```
+
+```{python}
+setE={"a","b","b"}
+print(setE)
+len(setE)
+```
+
+```{python}
+listY=[1,1,3,0,1,0,2]
+listY
+list(set(listY))
+
+setY=set(listY)
+setY
+listY2=list(setY)
+listY2
+```
+
+# 取一個元素
+
+```{python}
+listA
+```
+
+```{python}
+listA[0] # 從0開始數
+listA[1]
+listA[2]
+listA[3] # 沒有3
+```
+
+```{python}
+tupleC=(1,["a","b"],True)
+tupleC
+```
+
+```{python}
+tupleC[0] # 從0開始數
+tupleC[1]
+tupleC[2]
+tupleC[3] # 沒有3
+```
+
+```{python}
+listA = [('Mary','John'),('A2838','C8898'),(89,73)]
+len(listA) # 元素個數
+listA
+```
+
+```{python}
+listA[0] # 取第0個元素
+listA[0][1] # 取第0個元素出在，接著取它的第1個元素
+
+type(listA[0])
+type(listA[0][1])
+```
+
+```{python}
+tupleC=(1,["a","bay"],True)
+tupleC[1][1]
+type(tupleC[1][1])
+tupleC[1][1][0]
+```
+
+學號 4107732882
+```{python 學號例子}
+studentID2="4107732882"
+type(studentID2)
+studentID2[3]
+```
+
+
+```{python}
+studentId=4107732882
+studentId3=str(studentId)
+studentId3[3]
+type(studentId)
+```
+
+# 取規則多個
+
+```{python}
+listA=['A','B','C','D','E','F','G','H','I','J']
+len(listA)
+listA
+listA[0:5:1]
+listA[0:5]
+listA[0:5:2]
+listA[:5] # 前面5個
+```
+
+```{python}
+listA
+listA[-2:5:-1]
+listA[-2:-6:-1]
+listA[-5:-1:1]
+listA[-5:] # 倒數後5個
+```
+
+```{python}
+listA[-5:-1:-1]
+```
+
+```{python}
+listA
+```
+
+```{python}
+listA[1:]
+listA[0:-1]
+```
+
+
+# 不規則選取
+選0、2,7
+```{python}
+[listA[0],listA[2],listA[7]]
+```
+for i in [0,2,7]: expression listA[i]
+i=0 listA[0]
+i=2 listA[2]
+i=7 listA[7]
+
+```{python}
+list(  listA[index] for index in [0,2,7]  )
+```
+
+index=1,8,3,4
+```{python}
+list(listA[index] for index in [1,8,3,4])
+```
+
+```{python}
+[listA[index] for index in [1,8,3,4]]
+```
+
+第1，7，8元素(index=0,6,7)
+```{python}
+listB=[2,5,-1,31,-22,3,17,25]
+[listB[index] for index in [0,6,7]]
+```
+
+

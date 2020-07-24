@@ -1,0 +1,415 @@
+---
+title: "課堂練習"
+date: "9/12/2019"
+output: html_document
+editor_options: 
+  chunk_output_type: inline
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(reticulate)
+use_python("/anaconda3/envs/m-team/bin/python",
+           required = T)
+use_condaenv("m-team", required = T)
+```
+
+```{python}
+setA={"a","c",2,3,7}
+setA
+```
+
+```{python}
+setA[1]
+```
+
+```{python}
+setB={
+"1": "a",
+"2": "c",
+"3": 2,
+"4": 3,
+"5": 7
+}
+```
+
+```{python}
+dictionaryA ={"name": "Mary", "id": "A28374", "grade": 77}
+dictionaryA
+```
+
+```{python}
+dictionaryA["name"]="Tom"
+dictionaryA
+```
+
+```{python}
+listA=[2,3,4,7,6]
+listA[2]=-1
+listA
+```
+
+```{python}
+grade={
+"學號": [172,214,322,425,517],
+"姓名": ["小明","大雄","胖虎","小新","大白"],
+"成績": [80,60,90,70,50]
+}
+grade
+```
+
+```{python}
+grade["成績"]
+```
+取出"小明",及80
+```{python}
+len(grade)
+grade["姓名"][0]
+grade["成績"][0]
+{
+grade["姓名"][0]: grade["成績"][0],
+grade["姓名"][1]: grade["成績"][1]
+}
+```
+
+```{python}
+{
+grade["姓名"][i]: grade["成績"][i] for i in [0,1,2,3,4]
+}
+```
+
+```{python}
+matrixA=[
+[2,3,1],
+[1,0,5]
+]
+sparseMatrix = {
+(0, 0): 3, 
+(0, 2): -2, 
+(0, 3): 11,
+(1, 1): 9, 
+(2, 1): 7, 
+(3, 3): -5}
+print(sparseMatrix)
+```
+
+```{python}
+sparseMatrix[(3,3)]
+```
+
+# copy
+
+```{python}
+originalList=[1,2,"a"]
+definitionCopy=originalList # 定義式複製
+sliceCopy=originalList[:] # slice複製
+sliceCopy2=originalList.copy()
+originalList
+definitionCopy
+sliceCopy
+sliceCopy2
+```
+
+```{python}
+print(definitionCopy)
+print(originalList)
+
+definitionCopy[1]="b"
+print(definitionCopy)
+print(originalList)
+```
+
+```{python}
+originalList[1]=2
+print(definitionCopy)
+print(originalList)
+```
+
+```{python}
+originalList=[1,2,"a"]
+sliceCopy=originalList[:] # slice複製
+print(sliceCopy)
+print(originalList)
+
+sliceCopy[1]="b"
+print(sliceCopy)
+print(originalList)
+```
+
+```{python}
+originalList[1]="f"
+print(sliceCopy)
+print(originalList)
+```
+
+記憶體存treeA的方式
+
+有一塊記憶體address0：[1,2,3,address1, address2]
+address1 指向某一記憶體位置其內容為[4,5]
+address2 指向另一記憶體位置其內容為[6,7]
+
+treeACopy
+有一塊記憶體address3：[1,2,3,address1, address2]
+
+```{python}
+treeA=[1,2,3,[4,5],[6,7]]
+
+treeACopy=treeA.copy()
+```
+
+```{python}
+treeA
+treeACopy
+```
+
+```{python}
+treeA[1]="b"
+treeA
+treeACopy
+```
+
+```{python}
+treeACopy[3][0]="a"
+treeACopy
+treeA
+```
+
+
+```{python}
+original = [[0], 1]
+shallow = original[:]
+import copy
+deep = copy.deepcopy(original)
+
+print(original)
+print(shallow)
+print(deep)
+```
+
+```{python}
+original[1]="2"
+print(original)
+print(shallow)
+print(deep)
+
+original[0][0]="2"
+print(original)
+print(shallow)
+print(deep)
+```
+
+
+chapter 2
+
+```{python}
+listA=[2,3,"b"]
+listA+[5]
+listA
+listA.append(5)
+listA
+```
+
+```{python}
+numList=[3,2,11,43]
+
+numList[0]+3
+numList[1]+3
+```
+
+```{python}
+[numList[i]+3 for i in [0,1,2,3]]
+[numList[i]>10 for i in [0,1,2,3]]
+
+```
+
+```{python}
+numList=[3,2,11,43]
+numList
+
+numList + [3] # 將list [3]接在後面
+numList + ["a","b"]
+```
+
+```{python}
+numList*2 # list複製兩次接在一起
+# 2*numList
+```
+
+
+# string
+
+```{python}
+a="Hello, 你好嗎？"
+len(a) # 字（串）的長度包含空格
+b=["Hello"]
+len(b) # list元素個數
+```
+
+```{python}
+a[0]
+a[:5]
+a[-5:]
+```
+
+
+```{python}
+x = "Hello " + "World"
+x
+y = "wow..."*3
+y
+```
+
+==
+```{python}
+x=[1,2,3]
+y=[1,2,3]
+z=[1,2]
+x==y
+x==z
+x!=z
+```
+
+```{python}
+x=[1,2,3]
+y=[1,2,3]
+x is y
+x is not y
+```
+
+```{python}
+5 in [1,5,3]
+[5] in [1,5,3]
+[5] in [[1],[5],[3]]
+```
+
+```{python}
+x=3
+x<5 and x<10
+x<5 or x>4
+not(x<5 or x>4)
+```
+
+使用list comprehension產生一個listG個別元素是否>listF個別元素的list
+```{python}
+listF=[2,5,10,11,-1,7]
+listG=[4,7,-2,10,11,15]
+[listF[i] < listG[i] for i in [0,1,2,3,4,5]]
+```
+
+```{python}
+float("12") # 字串12轉數字
+int("12") # 字串12轉整數
+str(12) # 數字12轉字串
+bool("True") # 轉邏輯
+```
+
+```{python}
+listC=[2,3,4]
+str(listC)
+```
+
+```{python}
+[str(listC[i]) for i in [0,1,2]]
+```
+
+```{python}
+[i for i in "abc"]
+[i for i in {"A": 25, "B": 1, "C": 44}]
+[i for i in [0,5,8]]
+```
+
+```{python}
+[i for i in 0:5]
+```
+
+```{python}
+list2iter=["a",2,"c"]
+[i for i in [0,1,2]]
+[i for i in range(0,3)] 
+[i for i in range(0,len(list2iter))] 
+```
+
+```{python}
+type(list2iter[0])
+type(list2iter[0])==str
+```
+
+
+```{python}
+[type(list2iter[i]) is str for i in range(0,3)]
+```
+
+# string method
+
+```{python}
+x="i am steven."
+x.capitalize() # 開頭大寫
+x.center(20) # 20個字元長度，描述放中間
+x.upper() # 全大寫
+x.lower() # 全小寫
+x.find("steven") # steven開始的位置
+```
+
+
+```{python}
+x
+x.split()
+x1,x2,x3=x.split() # 以空格切
+print(x1)
+print(x2)
+print(x3)
+```
+
+
+```{python}
+y="王小明,45歲,血型:A"
+y1,y2,y3=y.split(",") # 以,切
+print(y1); print(y2); print(y3)
+```
+
+```{python}
+print(y.split(",",1)) # 只切（前面數來）第一刀
+print(y.split(",",2)) # 只切（前面數來）二刀
+```
+
+```{python}
+" ".join(["用", "空格", "把", "字", "連起來"])
+"".join(["用", "空格", "把", "字", "連起來"])
+```
+
+```{python}
+"大"+"家"+"好"
+''.join(["大","家","好"])
+```
+
+```{python}
+" 你好 嗎？ ".strip()
+" 你好嗎？ ".lstrip()
+" 你好嗎？ ".rstrip()
+```
+
+```{python}
+" 你好嗎？ ".strip("嗎？ ")
+" 你好嗎？ ".replace("嗎？","!")
+```
+
+```{python}
+" 你好 嗎？ ".replace(" ","")
+```
+
+```{python}
+"{0}的{1}成績是{2}".format("小明", "經原", 50)  
+"{}的{}成績是{}".format("小明", "經原", 50) 
+"{1}的{0}成績是{2}".format("經原","小明", 50)   
+"{name}的{subject}成績是{grade}".format(
+  name="小明",grade=50,subject="經原") 
+```
+
+```{python}
+x="上海"
+xlist=list(x)
+xlist.reverse()
+"".join(xlist)
+```
+

@@ -1,0 +1,237 @@
+---
+title: "課堂練習"
+date: "9/12/2019"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(reticulate)
+use_python("/anaconda3/envs/m-team/bin/python",
+           required = T)
+use_condaenv("m-team", required = T)
+```
+
+# 5. rectangular data
+
+```{python}
+import numpy as np
+```
+
+```{python}
+M_list=[[7, -9, -5, 10, -13], 
+    [12, -6, -3, -6, -14], 
+    [7, -5, -4, 1, 5]]
+    
+M=np.array(M_list)
+M
+```
+
+```{python}
+M
+M_list[1][3] # row 2; col 4
+# M_list[1,3] # list 不能這麼做
+
+M
+M[1][3]
+M[1,3] # a position
+M[[0,2],:] # list of positions. columns 全取要寫`:` row 1 and 3, all cols
+M[[0,2],2:5] # row 1 and 3, col 3 4 5
+M[[True,False,True],:] # list of booleans
+M[:,[True,True, False,False,False]] 
+M[:,np.sum(M,axis=0)>0] # 只取sum across row>0的column
+M[np.sum(M,axis=1)<0,:] # 只取sum across col<0的row
+```
+
+
+```{python}
+M_list
+M_list2=M_list.copy()
+M_list2[0][1]=10
+M_list
+```
+
+```{python}
+M
+M2=M.copy()
+M2[1,1]=2
+
+M
+M2
+```
+
+## pandas
+
+```{python}
+import pandas as pd
+```
+
+```{python}
+dict_grade={
+    '學號': [172,214,322,425,517],
+    '姓名': ["小明","大雄","胖虎","小新","大白"],
+    '成績': [80,60,90,70,50]
+}
+
+df_grade0=pd.DataFrame(dict_grade)
+```
+
+
+
+```{python}
+dict_grade
+dict_grade['學號'][1]
+```
+
+```{python}
+df_grade0['學號'][1]
+```
+
+```{python}
+dict_grade['學號']
+df_grade0['學號'] # 使用label 學號來取
+df_grade0.學號 # R: df_grade0$學號
+```
+
+```{python}
+df_grade0[2:3]
+
+df_grade0[[True,False, True, False, False]]
+df_grade0.成績>70
+df_grade0[df_grade0.成績>70]
+```
+
+```{python}
+df_grade0
+```
+
+```{python}
+df_grade0.loc[[0,2,4],['學號','成績']]
+df_grade0.loc[1:3,:]
+df_grade0.loc[:,'學號':'成績']
+```
+
+```{python}
+df_grade0.iloc[[0,2,4],[0,2]]
+df_grade0.iloc[1:3,:]
+df_grade0.iloc[:,[0,2]]
+df_grade0.iloc[:,[True, False, True]]
+df_grade0.iloc[[True, False, True,False,False],:]
+
+df_grade0.loc[:,[True,False,True]]
+df_grade0.loc[[True, False, True,False,False],:]
+```
+
+```{python}
+df_grade0
+```
+
+## index
+
+```{python}
+df_grade0.sample(n=10, replace=True)
+```
+
+```{python}
+df_grade0
+df_grade1=df_grade0.loc[[0,3],["學號","姓名"]]
+
+df_grade1
+df_grade0.loc[[3,0],"成績"]
+```
+
+```{python}
+df_grade0.set_axis(['a','a','c','c','e'],axis=0,
+inplace=True)
+df_grade0
+```
+
+set_index()
+```{python}
+df_grade0.reset_index(inplace=True)
+df_grade0.set_index("學號",inplace=True)
+df_grade0
+```
+
+## 應用
+
+```{python}
+numList=[3,2,11,43]
+
+```
+
+```{python}
+numArray=np.array(numList)
+list(numArray+3)
+list(numArray>10)
+list(numArray+np.array([0,3,-1,2]))
+list(numArray*2)
+```
+
+```{python}
+import pandas as pd
+
+finStatement=pd.read_csv("http://mopsfin.twse.com.tw/opendata/t187ap06_O_ci.csv")
+dict_finStatement=finStatement.to_dict()
+```
+
+```{python}
+finStatement.columns
+```
+
+```{python}
+finStatement['營業利益（損失）']<0
+
+# 1 維
+a=finStatement['公司名稱']
+b=finStatement['營業利益（損失）']<0
+b
+a[b]
+
+# 2維
+finStatement.loc[b,'公司名稱']
+
+finStatement.columns.get_loc('公司名稱')
+finStatement.iloc[list(b),4]
+```
+
+
+```{python}
+b=finStatement['營業利益（損失）']<0
+type(b) # type is not list of booleans
+# <class 'pandas.core.series.Series'>
+# .iloc[,] 只接受 list of booleans
+list_b=list(b)]
+finStatement.iloc[list_b,4]
+```
+
+# 6
+
+```{python}
+import os
+path = os.getcwd()
+print(path)
+```
+
+```{python}
+import mymodule
+
+mymodule.pi
+mymodule.area(3.24)
+```
+
+```{python}
+import mymodule as mm
+mm.pi
+mm.area(3.24)
+```
+
+```{python}
+from mymodule as *
+```
+
+
+

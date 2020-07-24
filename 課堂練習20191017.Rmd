@@ -1,0 +1,456 @@
+---
+title: "課堂練習"
+date: "10/17/2019"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(reticulate)
+use_python("/anaconda3/envs/m-team/bin/python",
+           required = T)
+use_condaenv("m-team", required = T)
+```
+
+```{python}
+listA=[1,2,[3,5]] # nested list
+#listApart=listA[2]
+
+listDict=[
+{'A': 1, 'B': 2},
+{'A': 0, 'B': 8}
+] # list of dictionary
+#listDictPart=listDict[0]
+```
+
+shallow copy
+```{python}
+listAcopy=listA.copy()
+listDictCopy=listDict.copy()
+```
+
+```{python}
+listAcopy[2][0]='a'
+listA
+```
+
+
+```{python}
+listDictCopy[0]['A']='a'
+listDict
+```
+
+只有當list/dictionary, 裡面的元素是單純的atomic types: float, string,....ect. 此時shallow copy無法影響原本的物件。
+
+```{python}
+import requests
+response=requests.get("https://cloud.culture.tw/frontsite/trans/SearchShowAction.do?method=doFindTypeJ&category=3")
+danceInfo=response.json()
+```
+
+```{python}
+len(danceInfo[77]['showInfo'])
+dance77=danceInfo[77].copy()
+dance77 # dict of ...
+```
+
+```{python}
+dance77['showInfo'] # list of dict
+dance77['showInfo'].append({
+ 'time': 'aaa',
+ 'location': 'bbb'
+})
+
+dance77['showInfo']
+danceInfo[77]['showInfo']
+```
+
+## 視函數為元素
+
+```{python}
+def myfun(x,y):
+    return x+y
+
+def myfun2(x,y):
+    return x*y
+    
+
+dict_myfuns={
+    'fun1': myfun,
+    'fun2': myfun2
+}
+```
+
+```{python}
+myfun(1,3)
+myfun2(2,5)
+```
+
+```{python}
+myfun(1,3)
+dict_myfuns['fun1'](1,3)
+
+myfun2(2,5)
+dict_myfuns['fun2'](2,5)
+```
+
+## anonymous function
+
+```{python}
+lambda x, y: x + y
+```
+
+```{python}
+(lambda x, y: x + y)(2, 3)
+```
+
+```{python}
+fun=lambda x, y: x+y
+
+fun(2,3)
+```
+
+# iterations
+
+```{python}
+listA=[0,2,5,7]
+
+#找出大於3的
+
+[listA[i] for i in range(len(listA)) if listA[i]> 3 ]
+```
+
+```{python}
+listResult=list([])
+for i in range(len(listA)):
+    if listA[i]>3:
+        listResult.append(listA[i])
+
+
+```
+
+```{r}
+View(py$danceInfo)
+```
+
+```{r}
+a <- c(1,3,5)
+```
+
+```{python}
+r.a
+```
+
+## 展演場次
+
+```{python}
+lenList = list([])
+_sum_=0
+for i in range(len(danceInfo)):
+     lenList.append(len(danceInfo[i]["showInfo"]))
+     _sum_ += len(danceInfo[i]["showInfo"])
+     
+lenList
+sum(lenList) # function
+_sum_
+```
+
+### sum
+
+```{python}
+import random
+a=[random.randint(0,100) for i in range(0,12)]
+a
+```
+
+```{python}
+sum=0
+for i in range(len(a)):
+    sum += a[i] # sum.iadd(a[i])
+
+print(sum)
+```
+
+## 4.1.1
+
+```{python}
+dict_example = {
+    'list': [1, 3, -7, 4, 9, -5, 4],
+    'dict': {
+        "日期": [2001,2002,2003],
+        "金額": [21000,33000,45880]
+        },
+    'matrix': [
+        [2,5,4],
+        [2,-1,3]]
+}
+
+
+print("list")
+x=dict_example["list"]
+x
+[i for i in x]
+[i for i in range(len(x))]
+[i for i in enumerate(x)] # 產生tuple iterates
+```
+
+
+```{python}
+M=dict_example['matrix']
+M
+```
+
+$$\sum_{ij}M_{ij}$$
+
+$$\sum_i \sum_j M_{ij}$$
+
+
+1.
+$$i=0,\ \sum_j M_{0j}$$
+```{python}
+i=0
+_sum_=0
+for j in range(len(M[i])):
+    _sum_ += M[i][j]
+
+_sum_
+```
+
+```{python}
+a = 0
+for j in range(len(M[0])):
+    a += M[0][j]
+
+for j in range(len(M[1])):
+    a += M[1][j]
+    
+a
+```
+
+i=0
+for j in range(len(M[i])):
+    a += M[i][j]
+
+i=1
+for j in range(len(M[i])):
+    a += M[i][j]
+
+
+```{python}
+a = 0
+for i in range(len(M)): #知道有幾row
+    for j in range(len(M[i])): #取出第一個ROW
+        a += M[i][j]
+
+print (a)
+```
+
+
+
+
+M[0]=[2,5,4]
+
+range(len(M[0])): 0,1,2
+
+i=0: 
+   a= 0 + M[0][i]= 0+ M[0][0]=0+2=2
+   
+i=1:
+   a= 2 + M[0][i]= 2+ M[0][1]=2+5=7
+   
+i=2:
+   a= 7 + M[0][i]= 7+ M[0][2]=7+4=11
+   
+a (11)
+
+  
+```{python}
+covM=[
+[1,3,5],
+[3,1,7],
+[5,7,1]
+]
+```
+
+$$\sum_{i=0}^2 \sum_{j=0,1,2, j<=i} covM_{ij}$$
+
+解答一
+```{python}
+a=0
+for i in range(len(covM)):    
+    for j in range(len(covM[i])):
+        if j<=i:
+          a += covM[i][j]
+
+print(a)
+```
+
+解答二(*)
+```{python}
+a=0
+for i in range(len(covM)):
+    for j in range(0,i+1):
+        a+= covM[i][j]
+
+a
+```
+
+解答三
+```{python}
+a=0
+for i in range(len(covM)):
+    for j in range(len(covM[i])):
+        if j>i:
+            continue
+        a+= covM[i][j]
+
+a
+```
+
+
+```{python}
+a=0
+for i in range(len(covM)):
+    for j in range(len(covM[i])):
+        if covM[i][j] <= 3:
+            continue
+        a+= covM[i][j]
+
+a
+```
+
+### iterator choice
+
+```{python}
+listA=[[1,3,5],[2,4,6]]
+sum=0
+for i in range(len(listA)):
+    for i in range(len(listA[i])):
+        sum +=listA[i][i]
+
+print(sum)
+```
+
+## while-loops
+
+```{python}
+x=dict_example['list']
+x
+```
+
+```{python}
+i=0
+while x[i]>0:
+    i+=1
+
+print(x[i])
+```
+
+
+factorial
+```{python}
+n=5
+downByOne=n-1
+while downByOne > 0:
+    n *= downByOne
+    downByOne -= 1
+
+print(n)
+```
+
+```{python}
+n=5
+downByOne=n-1
+if downByOne > 0:
+    n=n*downByOne # 
+    downByOne=downByOne-1
+
+if downByOne > 0:
+    n=n*downByOne # 
+    downByOne=downByOne-1
+
+if downByOne > 0:
+    n=n*downByOne # 
+    downByOne=downByOne-1
+
+if downByOne > 0:
+    n=n*downByOne # 
+    downByOne=downByOne-1
+
+if downByOne > 0:
+    n=n*downByOne # 
+    downByOne=downByOne-1
+```
+
+```{python}
+n=5
+downByOne=n-1
+while downByOne > 0:
+    n *= downByOne # 
+    downByOne -= 1
+
+print(n)
+```
+
+## Newton's method
+
+```{python}
+p=lambda x: x**3-x**2-1
+dp=lambda x: 3*x**2-2*x
+
+x0=1
+x1=x0-p(x0)/dp(x0)
+p(x1)
+
+x2=x1-p(x1)/dp(x1)
+p(x2)
+```
+
+```{python}
+x=1
+if abs(p(x))>1e-10:
+    x=x-p(x)/dp(x)
+    p(x)
+
+if abs(p(x))>1e-10:
+    x=x-p(x)/dp(x)
+    p(x)
+
+if abs(p(x))>1e-10:
+    x=x-p(x)/dp(x)
+    p(x)
+
+if abs(p(x))>1e-10:
+    x=x-p(x)/dp(x)
+    p(x)
+
+```
+
+```{python}
+x=1 
+while abs(p(x))>1e-10:
+    x -= p(x)/dp(x)
+    #p(x)
+
+x
+p(x)
+```
+
+```{python}
+p=lambda x: x**3-x**2-1
+dp=lambda x: 3*x**2-2*x
+
+x=1
+count=0 # safe guard to avoid infinite loops
+while abs(p(x))>1e-10 and count <= 100:
+    x -= p(x)/dp(x)
+    count += 1
+    #p(x)
+
+x
+p(x)
+```
+
