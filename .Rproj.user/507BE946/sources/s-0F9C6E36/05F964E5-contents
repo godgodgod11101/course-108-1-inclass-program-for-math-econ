@@ -13,3 +13,7 @@ use_python("/anaconda3/envs/m-team/bin/python",
 use_condaenv("m-team", required = T)
 ```
 
+```{python}
+a=5
+```
+
