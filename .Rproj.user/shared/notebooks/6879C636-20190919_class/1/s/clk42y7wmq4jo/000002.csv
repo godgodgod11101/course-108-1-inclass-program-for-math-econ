@@ -1,0 +1,8 @@
+"0",""
+"0","# conda_install("
+"0","#   ""classEnvironment"", "
+"0","#   c(""google-api-python-client""), "
+"0","#   pip=TRUE    # 先別放這行，試試conda可否安裝。（尚未安裝）"
+"0","# )"
+"0","# 建議能用conda安裝module就用conda安裝，因為現在是在conda創造的沙盒內寫code。"
+"0",""

@@ -1,0 +1,6 @@
+"0",""
+"0","# reticulate::conda_install("
+"0","#   envname = ""classEnvironment"",    # 要安裝在哪個沙盒"
+"0","#   packages = c(""numpy"", ""pandas"")    # 要安裝的modules"
+"0","# )"
+"0",""

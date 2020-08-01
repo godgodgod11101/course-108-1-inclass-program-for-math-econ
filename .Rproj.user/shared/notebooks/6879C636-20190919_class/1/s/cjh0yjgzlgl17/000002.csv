@@ -1,0 +1,5 @@
+"0","
+listA = [1,3,True]
+tupleA = (1,True,8)
+setA = {1,3,5,7}
+"

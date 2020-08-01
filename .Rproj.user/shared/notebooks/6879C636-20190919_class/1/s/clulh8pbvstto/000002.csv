@@ -1,185 +1,0 @@
-"0",""
-"0","reticulate::conda_install("
-"0","  envname = ""classEnvironment"",    # 沙盒名稱"
-"0","  packages = c(""numpy"", ""pandas"")    # 要安裝的modules"
-"0",")"
-"1","Collecting package metadata (current_repodata.json): ...working... done
-"
-"1","Solving environment: ...working... done
-"
-"1","
-"
-"1","## Package Plan ##
-"
-"1","
-"
-"1","  environment location: D:\anaconda3\envs\classEnvironment
-"
-"1","
-"
-"1","  added / updated specs:
-"
-"1","    - python
-"
-"1","
-"
-"1","
-"
-"1","The following packages will be UPDATED:
-"
-"1","
-"
-"1","  ca-certificates    conda-forge::ca-certificates-2020.6.2~ --> pkgs/main::ca-certificates-2020.6.24-0
-"
-"1","
-"
-"1","The following packages will be SUPERSEDED by a higher-priority channel:
-"
-"1","
-"
-"1","  certifi            conda-forge::certifi-2020.6.20-py38h3~ --> pkgs/main::certifi-2020.6.20-py38_0
-"
-"1","  openssl            conda-forge::openssl-1.1.1g-he774522_1 --> pkgs/main::openssl-1.1.1g-he774522_0
-"
-"1","  python             conda-forge::python-3.8.5-h5fd99cc_1_~ --> pkgs/main::python-3.8.3-he1778fa_2
-"
-"1","
-"
-"1","
-"
-"1","Preparing transaction: ...working... done
-"
-"1","Verifying transaction: ...working... done
-"
-"1","Executing transaction: ...working... done
-"
-"1","Collecting package metadata (current_repodata.json): ...working... done
-"
-"1","Solving environment: ...working... done
-"
-"1","
-"
-"1","## Package Plan ##
-"
-"1","
-"
-"1","  environment location: D:\anaconda3\envs\classEnvironment
-"
-"1","
-"
-"1","  added / updated specs:
-"
-"1","    - numpy
-"
-"1","    - pandas
-"
-"1","    - python
-"
-"1","
-"
-"1","
-"
-"1","The following packages will be downloaded:
-"
-"1","
-"
-"1","    package                    |            build
-"
-"1","    ---------------------------|-----------------
-"
-"1","    libblas-3.8.0              |           16_mkl         3.6 MB  conda-forge
-"
-"1","    libcblas-3.8.0             |           16_mkl         3.6 MB  conda-forge
-"
-"1","    liblapack-3.8.0            |           16_mkl         3.6 MB  conda-forge
-"
-"1","    numpy-1.19.1               |   py38h72c728b_0         4.9 MB  conda-forge
-"
-"1","    pandas-1.1.0               |   py38h7ae7562_0         9.7 MB  conda-forge
-"
-"1","    python-dateutil-2.8.1      |             py_0         220 KB  conda-forge
-"
-"1","    pytz-2020.1                |     pyh9f0ad1d_0         227 KB  conda-forge
-"
-"1","    six-1.15.0                 |     pyh9f0ad1d_0          14 KB  conda-forge
-"
-"1","    ------------------------------------------------------------
-"
-"1","                                           Total:        25.7 MB
-"
-"1","
-"
-"1","The following NEW packages will be INSTALLED:
-"
-"1","
-"
-"1","  intel-openmp       pkgs/main/win-64::intel-openmp-2020.1-216
-"
-"1","  libblas            conda-forge/win-64::libblas-3.8.0-16_mkl
-"
-"1","  libcblas           conda-forge/win-64::libcblas-3.8.0-16_mkl
-"
-"1","  liblapack          conda-forge/win-64::liblapack-3.8.0-16_mkl
-"
-"1","  mkl                pkgs/main/win-64::mkl-2020.1-216
-"
-"1","  numpy              conda-forge/win-64::numpy-1.19.1-py38h72c728b_0
-"
-"1","  pandas             conda-forge/win-64::pandas-1.1.0-py38h7ae7562_0
-"
-"1","  python-dateutil    conda-forge/noarch::python-dateutil-2.8.1-py_0
-"
-"1","  pytz               conda-forge/noarch::pytz-2020.1-pyh9f0ad1d_0
-"
-"1","  six                conda-forge/noarch::six-1.15.0-pyh9f0ad1d_0
-"
-"1","
-"
-"1","The following packages will be UPDATED:
-"
-"1","
-"
-"1","  openssl              pkgs/main::openssl-1.1.1g-he774522_0 --> conda-forge::openssl-1.1.1g-he774522_1
-"
-"1","  python                 pkgs/main::python-3.8.3-he1778fa_2 --> conda-forge::python-3.8.5-h5fd99cc_1_cpython
-"
-"1","
-"
-"1","The following packages will be SUPERSEDED by a higher-priority channel:
-"
-"1","
-"
-"1","  ca-certificates    pkgs/main::ca-certificates-2020.6.24-0 --> conda-forge::ca-certificates-2020.6.20-hecda079_0
-"
-"1","  certifi               pkgs/main::certifi-2020.6.20-py38_0 --> conda-forge::certifi-2020.6.20-py38h32f6830_0
-"
-"1","
-"
-"1","
-"
-"1","
-"
-"1","Downloading and Extracting Packages
-"
-"1","liblapack-3.8.0      | 3.6 MB    |            |   0% liblapack-3.8.0      | 3.6 MB    |            |   0% liblapack-3.8.0      | 3.6 MB    | 4          |   4% liblapack-3.8.0      | 3.6 MB    | #8         |  19% liblapack-3.8.0      | 3.6 MB    | ###5       |  35% liblapack-3.8.0      | 3.6 MB    | ####9      |  50% liblapack-3.8.0      | 3.6 MB    | ######4    |  65% liblapack-3.8.0      | 3.6 MB    | #######6   |  77% liblapack-3.8.0      | 3.6 MB    | #########2 |  93% liblapack-3.8.0      | 3.6 MB    | ########## | 100% 
-"
-"1","six-1.15.0           | 14 KB     |            |   0% six-1.15.0           | 14 KB     | ########## | 100% 
-"
-"1","libcblas-3.8.0       | 3.6 MB    |            |   0% libcblas-3.8.0       | 3.6 MB    | 3          |   4% libcblas-3.8.0       | 3.6 MB    | #3         |  14% libcblas-3.8.0       | 3.6 MB    | ##9        |  29% libcblas-3.8.0       | 3.6 MB    | ####       |  40% libcblas-3.8.0       | 3.6 MB    | ####8      |  48% libcblas-3.8.0       | 3.6 MB    | #####6     |  56% libcblas-3.8.0       | 3.6 MB    | #######    |  71% libcblas-3.8.0       | 3.6 MB    | ########   |  80% libcblas-3.8.0       | 3.6 MB    | #########1 |  92% libcblas-3.8.0       | 3.6 MB    | ########## | 100% 
-"
-"1","python-dateutil-2.8. | 220 KB    |            |   0% python-dateutil-2.8. | 220 KB    | ##9        |  29% python-dateutil-2.8. | 220 KB    | ########## | 100% 
-"
-"1","libblas-3.8.0        | 3.6 MB    |            |   0% libblas-3.8.0        | 3.6 MB    | 2          |   2% libblas-3.8.0        | 3.6 MB    | #          |  11% libblas-3.8.0        | 3.6 MB    | #4         |  14% libblas-3.8.0        | 3.6 MB    | ##8        |  29% libblas-3.8.0        | 3.6 MB    | ###9       |  40% libblas-3.8.0        | 3.6 MB    | ####7      |  47% libblas-3.8.0        | 3.6 MB    | #####4     |  54% libblas-3.8.0        | 3.6 MB    | ######7    |  67% libblas-3.8.0        | 3.6 MB    | #######9   |  79% libblas-3.8.0        | 3.6 MB    | ########7  |  88% libblas-3.8.0        | 3.6 MB    | #########8 |  98% libblas-3.8.0        | 3.6 MB    | ########## | 100% 
-"
-"1","numpy-1.19.1         | 4.9 MB    |            |   0% numpy-1.19.1         | 4.9 MB    |            |   0% numpy-1.19.1         | 4.9 MB    | 8          |   8% numpy-1.19.1         | 4.9 MB    | #6         |  16% numpy-1.19.1         | 4.9 MB    | ##         |  21% numpy-1.19.1         | 4.9 MB    | ##9        |  30% numpy-1.19.1         | 4.9 MB    | ###7       |  37% numpy-1.19.1         | 4.9 MB    | ####3      |  44% numpy-1.19.1         | 4.9 MB    | #####3     |  54% numpy-1.19.1         | 4.9 MB    | ######1    |  62% numpy-1.19.1         | 4.9 MB    | ######9    |  70% numpy-1.19.1         | 4.9 MB    | #######7   |  77% numpy-1.19.1         | 4.9 MB    | ########3  |  84% numpy-1.19.1         | 4.9 MB    | #########  |  90% numpy-1.19.1         | 4.9 MB    | ########## | 100% 
-"
-"1","pandas-1.1.0         | 9.7 MB    |            |   0% pandas-1.1.0         | 9.7 MB    | 1          |   1% pandas-1.1.0         | 9.7 MB    | 5          |   5% pandas-1.1.0         | 9.7 MB    | 9          |  10% pandas-1.1.0         | 9.7 MB    | #4         |  14% pandas-1.1.0         | 9.7 MB    | #9         |  19% pandas-1.1.0         | 9.7 MB    | ##4        |  25% pandas-1.1.0         | 9.7 MB    | ##8        |  29% pandas-1.1.0         | 9.7 MB    | ###2       |  32% pandas-1.1.0         | 9.7 MB    | ###4       |  35% pandas-1.1.0         | 9.7 MB    | ###7       |  37% pandas-1.1.0         | 9.7 MB    | ####1      |  42% pandas-1.1.0         | 9.7 MB    | ####5      |  46% pandas-1.1.0         | 9.7 MB    | ####9      |  49% pandas-1.1.0         | 9.7 MB    | #####1     |  52% pandas-1.1.0         | 9.7 MB    | #####7     |  58% pandas-1.1.0         | 9.7 MB    | ######1    |  62% pandas-1.1.0         | 9.7 MB    | ######6    |  66% pandas-1.1.0         | 9.7 MB    | #######2   |  73% pandas-1.1.0         | 9.7 MB    | #######7   |  78% pandas-1.1.0         | 9.7 MB    | ########2  |  82% pandas-1.1.0         | 9.7 MB    | ########7  |  88% pandas-1.1.0         | 9.7 MB    | #########1 |  91% pandas-1.1.0         | 9.7 MB    | #########5 |  96% pandas-1.1.0         | 9.7 MB    | #########9 |  99% pandas-1.1.0         | 9.7 MB    | ########## | 100% 
-"
-"1","pytz-2020.1          | 227 KB    |            |   0% pytz-2020.1          | 227 KB    | 7          |   7% pytz-2020.1          | 227 KB    | ######3    |  64% pytz-2020.1          | 227 KB    | ########## | 100% 
-"
-"1","Preparing transaction: ...working... done
-"
-"1","Verifying transaction: ...working... done
-"
-"1","Executing transaction: ...working... done
-"
