@@ -3,6 +3,8 @@ title: "20190926 class"
 author: "jacky wang"
 date: "2020/8/2"
 output: html_document
+editor_options: 
+  chunk_output_type: inline
 ---
 
 ```{r setup, include=FALSE}
@@ -15,6 +17,112 @@ use_python("D:\\anaconda3\\envs\\classEnvironment\\python.exe", required = T)
 # 在名為classEnvironment的沙盒下寫python
 use_condaenv("classEnvironment", required = T)
 ```
+
+**設定**
+
+按小齒輪－＞按chunk output in console－＞彈出寫code視窗
+chunk output in console讓console可編譯Python（>>> Python code）
+在console打exit，就會回復原狀（> R code）
+
+
+
+
+
+# dictionary
+
+元素以 key: value 成對定義的**集合**（set）
+
+```{python}
+
+setA={"a", "c", 2, 3, 7}
+setB={
+  1: "a", 
+  2: "b", 
+  3: 2, 
+  4: 3, 
+  5: 7
+}    # key can be intger
+
+setC={
+  "1": "a", 
+  "2": "b", 
+  "3": 2, 
+  "4": 3, 
+  "5": 7
+}    # key can be string
+
+```
+
+```{python}
+
+setB[2]
+setC["2"]
+
+# key is immutable and hashable! 
+
+```
+
+```{python}
+
+dictionaryA={"name": "Mary", "id": "A28374", "grade": 77}
+dictionaryA
+
+```
+
+```{python}
+
+dictionaryA["name"] = "Jacky"
+dictionaryA["name"]    # dictionary is mutable! 
+
+```
+
+## practice
+
+有5個人的
+  學號為172、214、322、425、517
+  姓名為小明、大雄、胖虎、小新、大白
+  成績為80、60、90、70、50
+  
+1. 創造名為grade的dictionary物件存下這些資訊。
+2. 取出成績的value。
+```{python}
+
+dic_grade = {
+  "studentID": ["172", "214", "322", "425", "517"], 
+  "name": ["Min", "Bear", "Tiger", "New", "White"], 
+  "grade": [80, 60, 90, 70, 50]
+}
+
+dic_grade["grade"]
+
+```
+
+取出"小明"及80
+```{python}
+
+dic_grade["name"][0]
+dic_grade["grade"][0]
+
+```
+
+3. 使用dictionary comprehension創造一個dictionary物件，其 key: value 為 姓名: 成績。
+```{python}
+
+{dic_grade["name"][0]: dic_grade["grade"][0]}
+
+{dic_grade["name"][index]: dic_grade["grade"][index] for index in [0, 1, 2, 3, 4]}
+# {dic_grade["name"][index]: dic_grade["grade"][index] for index in [0:4]}    # wrong!
+
+```
+
+
+
+
+
+
+
+
+
 
 
 
