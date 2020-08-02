@@ -157,7 +157,7 @@ atomic type及單純的tuple是immutable／hashable，但
   hashable：可雜湊的＝不可變的
 ```{python}
 
-(2,3,[4,5])    # not hashable because of element 3
+(2,3,[4,5])    # not hashable because of element 2 (start with 0)
 
 ```
 
@@ -355,6 +355,8 @@ dir()
 
 list與tuple，其元素無法命名，都「只能」使用index來取。
 
+## 取一個
+
 ```{python}
 
 listA=[1, 3, True]
@@ -377,12 +379,116 @@ tupleA[2]
 
 ```
 
+當向量為多層次向量時，可用[.]串連取
+```{python}
 
+listA = [('Mary','John'),('A2838','C8898'),(89,73)]
+len(listA) 
+listA
 
+```
 
+```{python}
+listA[0]    # get element 0
+listA[0][1]    # get element 0, and get element 0's element 1
 
+type(listA[0])
+type(listA[0][1])
 
+```
+### practice 1
 
+```{python}
+
+# get "bay"
+
+tuplePractice=(1,["a","bay"],True)
+
+tuplePractice[1][1]
+type(tuplePractice[1][1])
+
+```
+
+只有'str'的物件可以繼續用[.]取出對應位置字元
+```{python}
+
+tuplePractice[1][1][0]
+
+# tuplePra = (1,["a",55000],True)
+# tuplePra[1][1][0]
+
+```
+
+### practice 2
+
+```{python}
+
+# get the second 7 (intger class)
+
+studentID = 4107732882
+
+int(str(studentID)[5])
+int(str(studentID)[0:5])    # doesn't include the last element
+
+```
+
+## 規則取多個
+
+```{python}
+
+listA=['A','B','C','D','E','F','G','H','I','J']
+listA
+
+```
+
+```{python}
+
+# start:end:difference
+# doesn't include the end! 
+
+listA[0:5:1]    # get element 0, 1, 2, 3, 4
+listA[0:5]    # same as above
+
+listA[0:5:2]    # get element 0, 2, 4
+listA[:5]    # same as listA[0:5]
+
+```
+
+start為-1：從倒數第1個元素（最後一個）開始
+difference為-1：降冪取，無間隔
+
+```{python}
+
+listA
+
+listA[-2:5:-1]    # get element 8, 7, 6
+listA[-2:-6:-1]    # get element 8, 7, 6, 5
+listA[-5:-1:1]    # get element 5, 6, 7, 8
+listA[-5:]    # get element 5, 6, 7, 8, 9
+
+```
+
+```{python}
+
+listA[-5:-1:1]
+listA[-5:-1:-1]
+
+```
+
+### practice
+
+```{python}
+
+# get element, start with 1 (index=1)
+# get element, start with 0 (index=0), end with the second last
+
+listA[1:]
+listA[:-2] # wrong! 
+listA[:-1]
+
+```
+
+## 不規則取多個
 
 
 

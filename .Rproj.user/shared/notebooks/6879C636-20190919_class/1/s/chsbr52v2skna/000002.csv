@@ -1,3 +1,0 @@
-"0","
-# setF={1,""b"",[1,4]}    # TypeError: unhashable type: 'list'
-"
