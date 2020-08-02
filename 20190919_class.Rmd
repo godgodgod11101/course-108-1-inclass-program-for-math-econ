@@ -490,5 +490,41 @@ listA[:-1]
 
 ## 不規則取多個
 
+```{python}
 
+# pick element 0, 2, 7
+
+[listA[0], listA[2], listA[7]]
+(listA[0], listA[2], listA[7])    # class 'tuple'
+
+```
+
+使list comprehension
+```{python}
+
+list(listA[i] for i in [0, 2, 7])
+
+```
+expression: list[i] －＞ 動作
+for i in [0, 2, 7] －＞ 當i為0、2、7時
+  i = 0: listA[0]; i = 2: listA[2]; i = 7: listA[7]
+
+```{python}
+
+list(listA[index] for index in [1, 8, 3, 4])
+# also
+[listA[index] for index in [1, 8, 3, 4]]
+
+```
+
+### practice
+
+取第1、7、8個元素。（注意index）
+```{python}
+
+listB=[2,5,-1,31,-22,3,17,25]
+
+list(listB[index] for index in [0, 6, 7])
+
+```
 
