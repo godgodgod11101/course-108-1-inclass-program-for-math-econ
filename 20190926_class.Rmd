@@ -115,14 +115,100 @@ dic_grade["grade"][0]
 
 ```
 
+# dictionary
+
+tuple也可以用來當key
+```{python}
+
+sparseMatrix = {
+  (0, 0): 3, 
+  (0, 2): -2, 
+  (0, 3): 11,
+  (1, 1): 9, 
+  (2, 1): 7, 
+  (3, 3): -5
+}
+print(sparseMatrix)
+
+```
+稀疏矩陣（sparse matrix）：只記錄矩陣「非零」的位置，佔較小記憶體空間。
+
+```{python}
+
+sparseMatrix[(3, 3)]
+
+```
 
 
 
+# mutable, immutable, hashable
+
+```{python}
+
+# tuple is immutable
+
+tupleA = (3, 4, 5)
+print(tupleA)
+
+# tupleA[1] = 8    # TypeError: 'tuple' object does not support item assignment
+
+```
+
+```{python}
+
+# list is mutable
+
+listA = [3, 4, 5]
+print(listA)
+
+listA[1] = 8
+listA
+
+```
+
+```{python}
+
+# dictionary is mutable
+
+dictA = {
+  "name": "Jack", 
+  "height": 183, 
+  "weight": 90, 
+  "age": 31, 
+  "hobby": ["swim", "work out", "coding"]
+}
+dictA
+
+dictA["name"] = "Jason"
+dictA
+
+```
+
+## practice
+
+```{python}
+
+listA=[2,7,5,-2,13]
+listA
+
+# change element 1 (index = 0) to 0
+
+listA[0] = 0
+listA
+
+# change element 2 (index = 1) to ("a", "b")
+
+listA[1] = ("a", "b")
+listA
+
+```
+
+# list copy
+
+```{python}
 
 
 
-
-
-
+```
 
 
