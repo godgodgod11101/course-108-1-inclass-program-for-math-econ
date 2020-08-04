@@ -301,6 +301,150 @@ treeACopy
 
 ```
 
+## deep copy
+
+```{python}
+
+original = [[0, 1], "Jack"]
+shallowCopy = original[:]
+
+import copy    # import copy module
+
+deepCopy = copy.deepcopy(original)
+
+print(original)
+print(shallowCopy)
+print(deepCopy)
+
+```
+
+```{python}
+
+original[1] = "change1"
+
+print(original)
+print(shallowCopy)    # shallowCopy doesn't change 
+print(deepCopy)
+
+```
+
+```{python}
+
+original[0][0] = "change2"
+
+print(original)
+print(shallowCopy)    # shallowCopy has changed! 
+print(deepCopy)
+
+```
+
+
+
+
+
+# CH2 物件運算
+
+operation與method的不同處，
+在於method是直接作用在物件上，而operation不是。
+
+operation：針對一個情境去呈現結果
+```{python}
+
+a=2; b=3; c=5
+
+a+b
+a>b
+(a>b or a<c)
+
+a; b; c    # doesn't change
+
+```
+
+method：直接作用在一個物件上
+```{python}
+
+# add an element 5 (integer) into listA 
+
+listA=[2,3,"b"]
+listA+[5]    # operation
+listA    # doesn't change
+
+listA.append(5)    # method
+listA    # listA has changed! Because it is mutable. 
+
+```
+只有method「有可能」「直接改變」物件內容！
+
+```{python}
+
+stringA="Hello"
+stringA.upper()    # method: returns a string where all characters are in upper case
+stringA    # stringA doesn't change. Because it is immutable.
+
+```
+
+# operation
+
+```{python}
+
+3+3
+3-2
+3*2
+3/2
+3//2    # modulo operation
+3**4    # 3 to the power of 4
+
+```
+modulo operation：計算一個數除以另一個數的餘數
+
+```{python}
+
+# logical operation
+
+3>4
+3>=4
+3==3
+3!=4
+
+```
+
+## practice
+
+1. 計算numList每個值+3
+2. 判斷numList每個值是否>10
+
+```{python}
+
+numList=[3,2,11,43]
+# numList + 3    # wrong!
+
+[numList[i] + 3 for i in range(4)]
+
+[numList[i] > 10 for i in range(4)]
+
+```
+
+# operation
+
+但list可以和list做+（增加元素）
+```{python}
+
+numList=[3,2,11,43]
+numList
+
+numList + [3]
+numList + ["a","b"]
+
+```
+
+list可以和整數做*（複製多次接在一起）
+```{python}
+
+numList*2
+2*numList
+
+```
+
 
 
 
