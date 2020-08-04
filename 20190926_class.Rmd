@@ -207,8 +207,100 @@ listA
 
 ```{python}
 
+originalList=[1,2,"a"]
 
+# three ways to copy
+
+# definition copy
+definitionCopy=originalList    # = in Python is equal to <- in R
+
+# slice copy
+sliceCopy=originalList[:]    # XXX[:]: select all
+sliceCopy2=originalList.copy()
+
+originalList
+definitionCopy
+sliceCopy
+sliceCopy2
 
 ```
+
+定義式的複製下，definitionCopy與originalList會有連動關係。
+```{python}
+
+originalList=[1,2,"a"]
+definitionCopy=originalList
+print(definitionCopy)
+print(originalList)
+
+definitionCopy[1]="change1"
+print(definitionCopy)
+print(originalList)
+
+```
+
+```{python}
+
+originalList[1]="change2"
+print(definitionCopy)
+print(originalList)
+
+```
+
+切割式的複製，不具有完全的連動關係。
+```{python}
+
+originalList=[1,2,"a"]
+sliceCopy=originalList[:]
+print(sliceCopy)
+print(originalList)
+
+sliceCopy[1]="change1"
+print(sliceCopy)
+print(originalList)
+
+```
+
+```{python}
+
+originalList[1]="change2"
+print(sliceCopy)
+print(originalList)
+
+```
+
+## shallow copy
+
+```{python}
+
+treeA = [1, 2, ["a", "b"]]
+treeACopy = treeA.copy()
+
+treeA
+treeACopy
+
+```
+
+更動「根」部位：不會產生連動
+```{python}
+
+treeA[0] = "change1"
+
+treeA
+treeACopy
+
+```
+
+更動「枝」部位：產生連動
+```{python}
+
+treeA[2][0] = "change2"
+
+treeA
+treeACopy
+
+```
+
+
 
 
