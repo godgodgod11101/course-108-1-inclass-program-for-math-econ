@@ -378,12 +378,14 @@ listA    # listA has changed! Because it is mutable.
 ```{python}
 
 stringA="Hello"
-stringA.upper()    # method: returns a string where all characters are in upper case
+stringA.upper()    # method
 stringA    # stringA doesn't change. Because it is immutable.
 
 ```
 
-# operation
+# Operation
+
+## 數值
 
 ```{python}
 
@@ -399,7 +401,7 @@ modulo operation：計算一個數除以另一個數的餘數
 
 ```{python}
 
-# logical operation
+# relational operation
 
 3>4
 3>=4
@@ -408,7 +410,7 @@ modulo operation：計算一個數除以另一個數的餘數
 
 ```
 
-## practice
+### practice
 
 1. 計算numList每個值+3
 2. 判斷numList每個值是否>10
@@ -424,7 +426,7 @@ numList=[3,2,11,43]
 
 ```
 
-# operation
+## 數值
 
 但list可以和list做+（增加元素）
 ```{python}
@@ -442,6 +444,365 @@ list可以和整數做*（複製多次接在一起）
 
 numList*2
 2*numList
+
+```
+
+## 字串
+
+```{python}
+
+a="Hello, I'm Jacky."
+len(a)    # length of string (include space)
+
+b=["Hello"]
+len(b)    # length of list
+
+```
+
+```{python}
+
+x = "Hello " + "World"
+x
+
+y = "wow..."*3
+y
+
+```
+
+由於Python將string的每個字元當成它的每個元素，所以可用元素粹取概念輕易拿出其中的字
+```{python}
+
+x[0]
+x[:5]
+x[-5:]
+
+```
+
+## relational operator
+
+```{python}
+
+x=[1, 2, 3]
+y=[1, 2, 3]
+z=[1, 2]
+
+x==y
+x==z
+x!=z
+
+```
+
+物件1與物件2是否來自同一記憶體位置
+```{python}
+
+x = [1, 2, 3]
+y = [1, 2, 3]
+z = x
+
+x is y
+x is not y
+
+x is z
+x is not z
+
+```
+
+in：屬於
+```{python}
+
+5 in [1, 5, 3]
+[5] in [1, 5, 3]
+[5] in [1, [5], 3]
+
+```
+
+```{python}
+
+x = set([1, 2, 3, 1, 3, 5]) 
+x
+
+3 in x
+
+```
+
+交集、聯集（&／|）
+```{python}
+
+x = {1, 2, 3, 5}
+y = set([1, 7, 8, 9])
+
+x | y    # union 
+
+x & y    # intersection 
+
+```
+
+## logical operator
+
+and：皆為真。 
+or：其一為真。
+not：真改偽，偽改真。
+```{python}
+
+x=3
+
+x<5 and x<10
+x<5 or x>4
+not(x<5 or x>4)
+
+```
+
+```{r}
+
+x=3
+
+x<5 & x<10
+x<5 | x>4
+!(x<5 | x>4)
+
+rm(x)
+
+```
+
+```{python}
+
+x=3
+
+x<5 & x<10
+x<5 | x>4
+
+```
+有些程式語言的and、or、not是使用&、|、~，
+&、|、~在Python裡有不同的意思，很少用，請盡量避免。
+
+### practice
+
+產生一個「listG個別元素是否大於listF個別元素」的list
+
+```{python}
+
+listF=[2,5,10,11,-1,7]
+listG=[4,7,-2,10,11,15]
+
+[listF[i] < listG[i] for i in range(len(listF))]
+
+```
+
+## class change
+
+```{python}
+
+float("12")
+int("12")
+str(12)
+bool("True")
+
+```
+
+要小心class change並不會將list物件的每個元素個別做class change！
+```{python}
+
+listC=[2,3,4]
+str(listC)
+
+```
+
+```{python}
+
+[str(listC[i]) for i in range(len(listC))]
+tuple([str(listC[i]) for i in range(len(listC))])
+{str(listC[i]) for i in range(len(listC))}
+
+```
+
+## generator comprehension
+
+generator comprehension: <expression> for <var> in <iterable>。
+其中，<iterable>指得是可被一一取出元素的物件。
+```{python}
+
+[i for i in [0, 1, 2, 3]]
+[i for i in "abc"]
+[i for i in {"A": 25, "B": 1, "C": 44}]    # is key
+
+```
+
+由於 eg. [0:8:2] 非屬iterable，因此不能用在generator comprehension。
+若想建立一個代表物件裡元素index的iterable，可使用range(<start>, <end>, <difference>)。
+  iteration：迭代／遍歷 一個object內被要求的所有元素之 過程／機制 。
+  iterable：可執行iteration的object
+```{python}
+
+list2=["a",2,"c"]
+
+[i for i in [0,1,2]]
+[i for i in range(0,3)] 
+[i for i in range(0,len(list2))] 
+
+```
+
+這裡的 “is” 表示該物件是否來自同一個class群（類似是否來自同一記憶體位置的概念）。
+```{python}
+
+str    # output <class 'str'>
+list
+int
+
+[type(list2[i]) is str for i in range(3)]
+# also
+[type(list2[i]) == str for i in range(3)]
+
+```
+
+### practice
+
+產生「判斷list3內各元素是否為list class」的list
+```{python}
+
+list3=["a",True,[1,3],4]
+
+[type(list3[i]) == list for i in range(len(list3))]
+
+```
+
+#  Method
+
+## 字串
+
+```{python}
+
+x="i am steven."
+
+x.capitalize()    # make the first character have upper case and the rest lowercase
+x.center(20)    # return a centered string of length 20
+x.upper()    # return a string where all characters are in upper case
+x.lower()    # return a string where all characters are in lower case
+x.find("steven")    # return the lowest index in x where "s" is found
+
+```
+這些string method並不會更動原始物件內容，因為atomic type是immutable！
+
+### 切割字串
+
+```{python}
+
+x.split()    # split in space
+
+# unpacking
+
+x1, x2, x3 = x.split()
+x1; x2; x3
+
+```
+
+```{python}
+
+y="Min Wang,45 years old,blood type: A"
+
+y1,y2,y3=y.split(",")    # split in ","
+print(y1); print(y2); print(y3)
+
+print(y.split(",", 1))    # split in "," only first
+print(y.split(",", 2))    # split in "," only first and second
+
+```
+
+### 合併字串
+
+```{python}
+
+" ".join(["use", "space", "to", "join", "the", "word"])
+
+"".join(["join", "the", "word"])
+
+```
+
+```{python}
+
+"I" + "am" + "Jacky"
+"".join(["I", "am", "Jacky"])    # faster than above
+
+```
+
+```{python}
+
+"".join(["I", "am", "Jacky"])    # press F1 can't help
+
+x = ""
+x.join(["I", "am", "Jacky"])    # press F1 can help
+
+```
+
+
+### 字元／空白移除
+
+string.strip()：移除兩側空白
+string.lstrip()：移除左側空白
+string.rstrip()：移除右側空白
+
+```{python}
+
+"  How are you?    ".strip()
+"  How are you?    ".lstrip()
+"  How are you?    ".rstrip()
+
+"  How are you?    ".strip("you?    ")
+"  How are you?    ".strip("you?")    # useless
+
+```
+
+### 字元替換
+
+```{python}
+
+"  How are you?    ".replace("How", "What")
+"  How are you?    ".replace(" ", "")
+
+```
+
+### 格式替換
+
+先做好模板，以後改裡面的字就好！
+
+```{python}
+
+"{0}'s grade of {1} is {2}".format("Min", "'Pri. of Econ.'", 50)
+"{}'s grade of {} is {}".format("Min", "'Pri. of Econ.'", 50)
+"{1}'s grade of {0} is {2}".format("'Pri. of Econ.'", "Min", 50)
+
+"{name}'s grade of {subject} is {grade}".format(
+  name = "Min", subject = "'Pri. of Econ.'", grade = 50
+)    # best way to use
+
+```
+
+### 其他更動
+
+若要採用的更動方式不在string method，可用以下方式：
+  步驟1. 先改成list
+  步驟2. 更動完再用"".join()
+
+```{python}
+
+x = "ykcaJ"
+
+xList = list(x)
+xList.reverse()
+xList
+
+"".join(xList)
+
+```
+
+```{python}
+
+x = "world! Hello"
+
+xList = x.split()
+xList.reverse()
+xList
+
+" ".join(xList)
 
 ```
 

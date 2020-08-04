@@ -3,7 +3,7 @@
     "path": "~/GitHub/course-108-1-inclass-program-for-math-econ/20190926_class.Rmd",
     "project_path": "20190926_class.Rmd",
     "type": "r_markdown",
-    "hash": "806764020",
+    "hash": "2581736422",
     "contents": "",
     "dirty": false,
     "created": 1596358217404.0,
@@ -11,19 +11,19 @@
     "relative_order": 2,
     "properties": {
         "tempName": "Untitled1",
-        "cursorPosition": "443,9",
-        "scrollLine": "428",
-        "last_setup_crc32": "CF607C67123bc221",
+        "cursorPosition": "781,14",
+        "scrollLine": "777",
+        "last_setup_crc32": "BB71F641123bc221",
         "chunk_output_type": "inline",
         "source_window_id": "",
         "docOutlineVisible": "1"
     },
     "folds": "",
-    "lastKnownWriteTime": 1596537632,
+    "lastKnownWriteTime": 1596553919,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1596537632755,
+    "last_content_update": 1596553919358,
     "read_only": false,
     "read_only_alternatives": []
 }
