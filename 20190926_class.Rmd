@@ -806,6 +806,29 @@ xList
 
 ```
 
+#### practice
 
+修正"Hellow zorld!"
+```{python}
+
+greeting = "Hellow zorld!"
+
+wrongIndex = greeting.find("zorld")
+greeting_list = list(greeting)
+
+greeting_list[wrongIndex] = "w"
+greeting_list
+
+greeting = "".join(greeting_list)
+greeting
+
+```
+
+```{python}
+
+# greeting = "Hellow zorld!"
+# greeting[greeting.find("z")] = "w"    # 'str' object is immutable! 
+
+```
 
 
