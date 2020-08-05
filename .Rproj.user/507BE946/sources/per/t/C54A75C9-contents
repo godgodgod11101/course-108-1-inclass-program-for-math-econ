@@ -1,0 +1,248 @@
+---
+title: "20201003 class (no video)"
+author: "jacky wang"
+date: "2020/8/5"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(reticulate)
+
+# 設定要使用的python（可能因要使用不同版本的python而路徑有所改變）
+use_python("D:\\anaconda3\\envs\\classEnvironment\\python.exe", required = T)
+# 在名為classEnvironment的沙盒下寫python
+use_condaenv("classEnvironment", required = T)
+```
+
+**設定**
+
+按小齒輪－＞按chunk output in console－＞彈出寫code視窗
+chunk output in console讓console可編譯Python（>>> Python code）
+在console打exit，就會回復原狀（> R code）
+
+
+
+
+
+# Method
+
+## list
+
+### 新增一筆
+
+```{python}
+
+listJ = ["a","b","c"]
+listJCopy = listJ.copy()    # shallow copy
+
+# by method
+listJ.append("d")
+listJ    # listJ has changed! 
+
+# by operation
+listJCopy + ["d"]
+listJCopy
+
+```
+
+operation只有「回存」時才會改變物件值
+```{python}
+
+listJCopy = listJCopy + ["d"]
+listJCopy
+
+```
+
+append method可否一次加多個元素？ 否，需用extend method
+```{python}
+
+listJ = ["a","b","c"]
+# listJ.append("d", "e")
+
+listJ.extend(["d", "e", "f"])
+listJ
+
+```
+
+或用list comprehension
+```{python}
+
+listJ = ["a","b","c"]
+
+[listJ.append(iterable) for iterable in ["d", "e", "f"]] 
+print(listJ)
+
+# list.append() returns None, but listJ still changed.
+
+# also
+listJ = ["a","b","c"]
+
+for iterable in ["d", "e", "f"]: 
+  listJ.append(iterable)    # <expression> must be indented! 
+print(listJ)
+
+```
+
+#### practice
+
+新增經濟學成績，使其內容如下：
+["Jacky", ["Calculus", 70], ["Accounting", 81], ["Economics", 77]]
+
+```{python}
+
+listJ = ["Jacky", ["Calculus", 70], ["Accounting", 81]]
+
+listJ.append(["Economics", 77])
+listJ
+
+```
+
+### 延伸
+
+```{python}
+
+listJ = ["Jacky", ["Calculus", 70], ["Accounting", 81], ["Economics", 77]]
+listD = ["Dawn", ["Calculus", 55], ["Accounting", 90], ["Economics", 65]]
+
+listJ.extend(listD)
+listJ
+len(listJ)
+
+```
+
+### 插入
+
+```{python}
+
+x = [1, 2, 3]
+
+x.insert(2, "hello")    # insert(index, object)
+print(x)
+x.insert(0, "start")
+print(x)
+x.insert(-1, "last")    # insert object *before* index
+print(x)
+
+```
+
+### 刪除
+
+刪除一個元素的method
+```{python}
+
+x=['start', 1, 2, 'hello', 'last', 3]
+print(x)
+
+x.__delitem__(0)
+x
+
+```
+
+對任何物件，一般使用del刪除：
+  若物件mutable，可刪整個物件、內容元素。
+  若物件immutable，只可刪整個物件。
+```{python}
+
+x=['start', 1, 2, 'hello', 'last', 3]
+print(x)
+
+del x[:3]
+x
+
+del x    # delete object
+
+```
+
+```{python}
+
+y="hello"
+# del y[1:4]    # TypeError: 'str' object does not support item deletion
+
+y_list = list(y)
+del y_list[1:4]
+
+y = "".join(y_list)
+y
+
+```
+
+移除符合條件值的「第一個」元素
+```{python}
+
+y=[1,2,3,5,3,4]
+print(y)
+
+y.remove(3)    # list.remove(value)
+print(y)
+
+```
+
+### 排序
+
+```{python}
+
+z = [[3, 5], [2, 9], [2, 3], [4, 1], [3, 2]]
+len(z)
+print(z)
+
+z.sort()    # lexicographic sorting
+print(z)
+
+z.sort(reverse = True)    # descending order
+print(z)
+
+z.sort(key = sum, reverse = True)    # sorting z based on sum function
+print(z)
+
+```
+
+### 找元素值位置
+
+```{python}
+
+listJ = ["Helen", "Alex", "John", "Mark","Alex"]
+listJ.index("Alex")    # only find the first one
+
+```
+
+#### practice
+
+找出所有"Alex"出現的index
+```{python}
+
+index_list = []
+len(listJ)
+
+for iterable in [0, 1, 2, 3, 4]: 
+  if listJ[iterable] == "Alex":    # must be indented!
+    index_list.append(iterable)    # must be indented!
+
+print(index_list)
+
+```
+
+
+### 數重覆次數
+
+```{python}
+
+listJ = [1,2,3,3,3,3,4,7]
+
+listJ.count(3)    # count(value)
+listJ.count(4)
+
+```
+
+## tuple
+
+
+
+
+
+## set
+
+
+
+

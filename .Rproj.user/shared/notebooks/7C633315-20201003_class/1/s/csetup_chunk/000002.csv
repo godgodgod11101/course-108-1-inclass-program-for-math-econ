@@ -1,0 +1,8 @@
+"0","knitr::opts_chunk$set(echo = TRUE)"
+"0",""
+"0","library(reticulate)"
+"0",""
+"0","# 設定要使用的python（可能因要使用不同版本的python而路徑有所改變）"
+"0","use_python(""D:\\anaconda3\\envs\\classEnvironment\\python.exe"", required = T)"
+"0","# 在名為classEnvironment的沙盒下寫python"
+"0","use_condaenv(""classEnvironment"", required = T)"
