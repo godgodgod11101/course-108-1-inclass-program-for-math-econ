@@ -353,7 +353,7 @@ list(dictionaryA.items())
 
 ```
 
-取出key下的value
+## 取出key下的value
 ```{python}
 
 dictionaryA.get("date")
@@ -402,7 +402,9 @@ danceInfo[1].keys()
 ```
 
 ```{python}
-danceInfo[1].values()
+
+# danceInfo[1].values()    # type it in the console
+
 ```
 
 ### practice2
@@ -431,21 +433,239 @@ View(py$dict_finStatement)
 
 ```
 
+找出dict_finStatement中'營業利益（損失）'為負的'公司名稱'
 ```{python}
 
-dict_finStatement.keys()
+# dict_finStatement.keys()    # type it in the console
 
 ```
 
 ```{python}
 
-profit = list(dict_finStatement.get('營業利益（損失）').values())
+# type it in the console
 
-[list(dict_finStatement.get('公司名稱').values())[i] for i in range(len(profit)) if profit[i] < 0]
+# profit = list(dict_finStatement.get('營業利益（損失）').values())
+# 
+# [list(dict_finStatement.get('公司名稱').values())[i] for i in range(len(profit)) if profit[i] < 0]
+
+```
+
+# Generation comprehension with condition
+
+```{python}
+
+listJ = [10,2,7,3,8]
+
+[i for i in range(len(listJ)) if listJ[i] > 5]
+
+```
+
+```{python}
+
+x = []
+
+for i in range(len(listJ)): 
+  if listJ[i] > 5: 
+    x.append(i)
+
+print(x)
 
 ```
 
 
 
+
+
+# CH3 函數與條件
+
+# 函數基本寫法
+
+def function_name(input1, input2=value, *input3, 
+**input4):
+
+  程序每行「內縮2格」
+
+  return ...
+
+input1：無預設值的input。
+input2：有預設值的input。
+*input3：將「無」keyword的input合成tuple物件。
+**input4：將「有」keyword的input合成dictionary物件。
+
+```{python}
+
+def add_fun(x, y): 
+  z = x + y
+  return z
+  
+add_fun(x=2, y=3)
+
+del add_fun
+
+```
+
+```{python}
+
+def add_fun(x, y):
+  return x + y
+  
+add_fun(2,3)
+
+del add_fun
+
+```
+
+預設值
+```{python}
+
+def add_fun(x, y=6): 
+  return x + y
+
+add_fun(3)
+
+del add_fun
+
+```
+
+pack to tuple
+```{python}
+
+def pack_tup(x, *y):
+  print('input1 is ', x)
+  print('input2 is ', y)
+  return None    # can be ignored
+
+pack_tup(1, [3,5], 10)
+pack_tup(["a","b"], {2,5,7}, 10)    # Except input 1, all input are packed to tuple.
+
+del pack_tup
+
+```
+
+pack to dictionary
+```{python}
+
+def pack_dic(x,**y):
+  print('input1 is ', x)
+  print('input2 is ', y)
+ 
+pack_dic(1, a=10, b={2,3})    # Except input 1, all input are packed to dictionary.
+
+del pack_dic
+
+```
+
+Any variable defined after a packed variable must be set by name.
+```{python}
+
+def pack_dic(x, *seq, y): 
+  print("x is ", x)
+  print("seq is ", seq)
+  print("y is ", y)
+  return None
+
+pack_dic(1, 2, 3, y=4)    # y must be set by name
+
+del pack_dic
+
+```
+
+unpacking usage
+```{python}
+
+def add_fun(a, b, c): 
+  return a + b + c
+
+add_fun(1, *[2, 3])
+add_fun(*[1, 2], 3)
+add_fun(*[1, 2, 3])
+
+```
+當call function時，*用在input，代表unpacking；
+當define function時，*用在input，代表packing
+
+```{python}
+
+# packing and unpacking
+
+a, *b, c = [1, 2, 3, 4, 5]
+a; b; c
+
+a, b, c = [1, *(2, 3)]
+a; b; c
+
+```
+
+## practice1
+
+建立標準常態分佈的pdf
+
+從 “math” module裡引入 “sqrt” “pi” “exp” 函數。（函數後不要加括號！）
+```{python}
+from math import sqrt, pi, exp
+```
+另外3種引入函數方式：
+
+1.  import “module”：引入整個模組。
+      使用 “module” 底下的函數，須要先寫 “module” 
+      例：math.sqrt(...)
+
+2.  import “module” as “new_name”：引入整個模組，但也許與其他地方有衝突，因此改名。
+      使用 “module” 底下的函數，須要先寫 “new_name” 
+      例：math's new_name.sqrt(...)
+
+3.  from “module” import *：引入 “module” 底下所有的函數。（不推！容易造成衝突）
+      使用函數不須先寫 “module” ，直接使用即可。
+
+
+```{python}
+
+def normal_pdf(z, mu=0, sigma=1): 
+  return 1/sqrt(2*pi*sigma**2) * exp(-(z-mu)**2/2*sigma**2)
+  
+normal_pdf(0.5)
+normal_pdf(-0.5)
+
+```
+
+## practice2
+
+建立Cobb-Douglass效用函數
+
+```{python}
+
+def utility_CD(x, y, alpha=0.5, beta=0.5): 
+  utiValue = x**alpha * y**beta
+  return utiValue
+
+utility_CD(1, 2)
+
+del utility_CD
+
+```
+
+```{python}
+
+def utility_CD(x, y, **parameters): 
+  alpha = parameters["alpha"]
+  beta = parameters["beta"]
+  utiValue = x**alpha * y**beta
+  return utiValue
+
+utility_CD(1, 2, alpha=0.5, beta=0.5)
+
+del utility_CD
+
+```
+
+## practice3
+
+寫一個 回傳負值index 的函數
+
+```{python}
+
+listJ = [1,-2,3,-4,10,"-4"]
+
+```
 
 
