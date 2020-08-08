@@ -1,5 +1,5 @@
 ---
-title: "20201003 class (no video)"
+title: "20191003 class (no video)"
 author: "jacky wang"
 date: "2020/8/5"
 output: html_document
@@ -25,6 +25,10 @@ chunk output in console讓console可編譯Python（>>> Python code）
 
 **技巧**
 在console裡打 repl_python() ，讓console可編譯Python（>>> Python code）。
+shift + Tab：回彈兩格。
+
+
+
 
 
 # Method
@@ -658,7 +662,80 @@ del utility_CD
 
 ```
 
-## practice3
+
+
+# 條件
+
+## block statement
+
+```{python}
+
+from math import nan
+
+def reci(x):    # reciprocal
+  if x != 0: 
+    return 1/x
+  else: 
+    return nan
+
+reci(3); reci(-2); reci(0)
+
+```
+
+domain = [-1, 1]
+```{python}
+
+def reci(x):    # reciprocal
+  if x!=0 and x>-1 and x<1: 
+    return 1/x
+  else: 
+    return nan
+
+reci(0.25); reci(-3); reci(0)
+
+```
+
+```{python}
+
+def fun1(x): 
+  if x >= 0:
+    return x**2
+  elif x < 0 and x > -1: 
+    return -x**2
+  else: 
+    return nan
+
+fun1(1); fun1(-0.5); fun1(-1)
+
+```
+
+## inline statement
+
+A if <condition> else B
+
+```{python}
+
+x = 4
+y = 5 if x > 3 else 7
+y
+
+x = 3
+y = 5 if x > 3 else 7
+y
+
+```
+
+```{python}
+
+def reci(x): 
+  return 1/x if x!=0 else nan
+
+reci(3); reci(-2); reci(0)
+
+```
+
+
+### practice1
 
 寫一個 回傳負值index 的函數
 
@@ -667,5 +744,181 @@ del utility_CD
 listJ = [1,-2,3,-4,10,"-4"]
 
 ```
+
+想法：對於[0, 1, 2, ...]（iterable）裡面的所有元素，如果滿足條件，我要呈現它。
+```{python}
+
+for iterable in range(len(listJ)): 
+  if type(listJ[iterable]) == int and listJ[iterable] < 0: 
+    iterable
+
+```
+
+若要寫成函數，必須回傳「單一」物件！
+
+傳統寫法by operation
+```{python}
+
+x = []
+
+for iterable in range(len(listJ)): 
+  if type(listJ[iterable]) == int and listJ[iterable] < 0: 
+    x = x + [iterable]
+x
+
+```
+
+傳統寫法by method
+```{python}
+
+x = []
+
+for iterable in range(len(listJ)): 
+  if type(listJ[iterable]) == int and listJ[iterable] < 0: 
+    x.append(iterable)
+x
+
+```
+
+快速寫法
+```{python}
+
+[iterable for iterable in range(len(listJ)) if type(listJ[iterable]) == int and listJ[iterable] < 0]
+
+```
+
+寫成函數
+```{python}
+
+def negIndReturn(list_x): 
+  x = []
+  for iterable in range(len(list_x)): 
+    if type(list_x[iterable]) == int and list_x[iterable] < 0: 
+      x.append(iterable)
+  return x
+
+negIndReturn(listJ)
+
+```
+
+### practice2
+
+```{python}
+
+import pandas as pd
+
+finStatement=pd.read_csv("http://mopsfin.twse.com.tw/opendata/t187ap06_O_ci.csv")
+dict_finStatement=finStatement.to_dict()
+
+```
+
+```{python}
+
+# type it in the console
+
+# copName = list(dict_finStatement['公司名稱'].values())
+# profit = list(dict_finStatement['營業利益（損失）'].values())
+# 
+# [copName[i] for i in range(len(copName)) if profit[i] < 0]
+
+```
+
+```{python}
+
+# type it in the console
+
+# def lossFirmList(dict_finSta):
+# 
+#   copName = list(dict_finSta['公司名稱'].values())
+#   profit = list(dict_finSta['營業利益（損失）'].values())
+# 
+#   return [copName[i] for i in range(len(copName)) if profit[i] < 0]
+
+```
+
+
+
+# local and global
+
+多數程式語言，當函數使用到input所沒有的物件時，它會去global environment找。
+```{python}
+
+c='one'
+
+def funDemo():
+  print(c)
+
+funDemo()
+
+del c
+
+# funDemo()    # c is not defined in global env
+
+```
+
+呼叫function時會開啟一個環境，叫executive environment，在裡面執行函數的程序。
+如果執行中有創造出任何物件，它會存活在executive environment內。
+然而函數程序執行完後，整個executive environment會刪除，物件也就消失了。
+```{python}
+
+def funDemo():
+  localC="two"
+  return localC
+
+funDemo()
+# localC    # localC disappeared
+
+```
+
+
+function input（比如叫x）若是直接來自global env（比如叫global1），它相當於是在做
+  x = global1 的定義式複製。
+如果global1是mutable，要小心函數裡對x值的更改會動到global1。
+```{python}
+
+global1=[1,3,[4,5]]
+
+def funtest(x):
+  x[0] = "a"
+  y = x[:]    # slice copy (shallow)
+  y[1] = "b"    # x doesn't change
+  y[2][1] = "c"    # x has changed
+  return None
+
+global1
+
+funtest(global1)    # definition copy: x = global1
+global1
+
+```
+
+流程解析
+```{python}
+
+global1=[1,3,[4,5]]
+global1
+
+
+# enter executive environment
+
+x = global1
+x[0] = "a"    # global1 changed
+y = x[:]
+
+y[1] = "b" 
+# x doesn't change because y is the shallow copy of x. So of course global1 doesn't change.
+
+y[2][1] = "c"    # global1 changed
+
+
+# delete executive environment objects
+
+del x, y
+
+
+global1
+
+```
+
 
 

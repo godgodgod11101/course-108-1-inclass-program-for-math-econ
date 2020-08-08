@@ -1,0 +1,6 @@
+"0","
+import pandas as pd
+
+finStatement=pd.read_csv(""http://mopsfin.twse.com.tw/opendata/t187ap06_O_ci.csv"")
+dict_finStatement=finStatement.to_dict()
+"

@@ -1,0 +1,924 @@
+---
+title: "20191003 class (no video)"
+author: "jacky wang"
+date: "2020/8/5"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(echo = TRUE)
+
+library(reticulate)
+
+# 設定要使用的python（可能因要使用不同版本的python而路徑有所改變）
+use_python("D:\\anaconda3\\envs\\classEnvironment\\python.exe", required = T)
+# 在名為classEnvironment的沙盒下寫python
+use_condaenv("classEnvironment", required = T)
+```
+
+**設定**
+
+按小齒輪－＞按chunk output in console－＞彈出寫code視窗
+chunk output in console讓console可編譯Python（>>> Python code）
+在console打exit，就會回復原狀（> R code）
+
+**技巧**
+在console裡打 repl_python() ，讓console可編譯Python（>>> Python code）。
+shift + Tab：回彈兩格。
+
+
+
+
+
+# Method
+
+## list
+
+### 新增一筆
+
+```{python}
+
+listJ = ["a","b","c"]
+listJCopy = listJ.copy()    # shallow copy
+
+# by method
+listJ.append("d")
+listJ    # listJ has changed! 
+
+# by operation
+listJCopy + ["d"]
+listJCopy
+
+```
+
+operation只有「回存」時才會改變物件值
+```{python}
+
+listJCopy = listJCopy + ["d"]
+listJCopy
+
+```
+
+append method可否一次加多個元素？ 否，需用extend method
+```{python}
+
+listJ = ["a","b","c"]
+# listJ.append("d", "e")
+
+listJ.extend(["d", "e", "f"])
+listJ
+
+```
+
+或用list comprehension
+```{python}
+
+listJ = ["a","b","c"]
+
+[listJ.append(iterable) for iterable in ["d", "e", "f"]] 
+print(listJ)
+
+# list.append() returns None, but listJ still changed.
+
+# also
+listJ = ["a","b","c"]
+
+for iterable in ["d", "e", "f"]: 
+  listJ.append(iterable)    # <expression> must be indented! 
+print(listJ)
+
+```
+
+#### practice
+
+新增經濟學成績，使其內容如下：
+["Jacky", ["Calculus", 70], ["Accounting", 81], ["Economics", 77]]
+
+```{python}
+
+listJ = ["Jacky", ["Calculus", 70], ["Accounting", 81]]
+
+listJ.append(["Economics", 77])
+listJ
+
+```
+
+### 延伸
+
+```{python}
+
+listJ = ["Jacky", ["Calculus", 70], ["Accounting", 81], ["Economics", 77]]
+listD = ["Dawn", ["Calculus", 55], ["Accounting", 90], ["Economics", 65]]
+
+listJ.extend(listD)
+listJ
+len(listJ)
+
+```
+
+### 插入
+
+```{python}
+
+x = [1, 2, 3]
+
+x.insert(2, "hello")    # insert(index, object)
+print(x)
+x.insert(0, "start")
+print(x)
+x.insert(-1, "last")    # insert object *before* index
+print(x)
+
+```
+
+### 刪除
+
+刪除一個元素的method
+```{python}
+
+x=['start', 1, 2, 'hello', 'last', 3]
+print(x)
+
+x.__delitem__(0)
+x
+
+```
+
+對任何物件，一般使用del刪除：
+  若物件mutable，可刪整個物件、內容元素。
+  若物件immutable，只可刪整個物件。
+```{python}
+
+x=['start', 1, 2, 'hello', 'last', 3]
+print(x)
+
+del x[:3]
+x
+
+del x    # delete object
+
+```
+
+```{python}
+
+y="hello"
+# del y[1:4]    # TypeError: 'str' object does not support item deletion
+
+y_list = list(y)
+del y_list[1:4]
+
+y = "".join(y_list)
+y
+
+```
+
+移除符合條件值的「第一個」元素
+```{python}
+
+y=[1,2,3,5,3,4]
+print(y)
+
+y.remove(3)    # list.remove(value)
+print(y)
+
+```
+
+### 排序
+
+```{python}
+
+z = [[3, 5], [2, 9], [2, 3], [4, 1], [3, 2]]
+len(z)
+print(z)
+
+z.sort()    # lexicographic sorting
+print(z)
+
+z.sort(reverse = True)    # descending order
+print(z)
+
+z.sort(key = sum, reverse = True)    # sorting z based on sum function
+print(z)
+
+```
+
+### 找元素值位置
+
+```{python}
+
+listJ = ["Helen", "Alex", "John", "Mark","Alex"]
+listJ.index("Alex")    # only find the first one
+
+```
+
+#### practice
+
+找出所有"Alex"出現的index
+```{python}
+
+index_list = []
+len(listJ)
+
+for iterable in [0, 1, 2, 3, 4]: 
+  if listJ[iterable] == "Alex":    # must be indented!
+    index_list.append(iterable)    # must be indented!
+
+print(index_list)
+
+```
+
+
+### 數重覆次數
+
+```{python}
+
+listJ = [1,2,3,3,3,3,4,7]
+
+listJ.count(3)    # count(value)
+listJ.count(4)
+
+```
+
+## tuple
+
+```{python}
+
+tupleA=(1,3,2,3)
+
+tupleA.count(3)
+tupleA.index(3)
+
+```
+
+一個元素的tuple要放一個逗號，否則會視為atomic type
+```{python}
+
+list1 = [2]
+set1 = {2}
+tupleAWrong = (2)    # atomic type
+tupleA=(2,)
+
+list1; set1; tupleAWrong; tupleA
+
+```
+
+## set
+
+```{python}
+
+x = set([1, 2, 3, 1, 3, 5]) 
+x
+
+x.add(6)    # add 1 element
+x
+
+x.update({7, 8, 10})    # add more element
+x
+
+```
+
+```{python}
+
+x = set([1, 2, 3, 5, 6, 7, 8, 10])
+
+x.remove(1)
+x
+
+x.difference({7, 8, 10})
+x    # x doesn't change
+
+x.difference_update({7, 8, 10})
+x    # x has changed
+
+```
+
+# Dictionary
+
+## 增加元素
+
+dictionary可以直接增加不存在的元素
+（list要增加元素只能使用append、insert、extend method）
+```{python}
+
+dictionaryA={
+  "date": [2001, 2002, 2003],
+  "amount": [21000, 33000, 45880]
+}
+dictionaryA
+
+dictionaryA["quantity"]=[100, 200, 300]
+dictionaryA
+
+```
+
+```{python}
+
+dictionaryA["date"]    # check
+
+```
+
+## 檢視
+
+檢視key
+```{python}
+
+dictionaryA.keys()
+type(dictionaryA.keys())
+
+list(dictionaryA.keys())
+type(list(dictionaryA.keys()))
+
+list(dictionaryA.keys())[0]
+
+```
+
+檢視value
+```{python}
+
+dictionaryA.values()
+
+```
+
+檢視 key: value （item）
+```{python}
+
+dictionaryA.items()   # display like tuple: (key, value)
+
+list(dictionaryA.items())
+
+```
+
+檢查某key存不存在
+```{python}
+
+"date" in dictionaryA    # operation
+"color" in dictionaryA
+
+```
+
+## 取出key下的value
+```{python}
+
+dictionaryA.get("date")
+dictionaryA.get("color")    # no output
+dictionaryA.get("color", "out of boundaries")
+
+```
+
+###  practice1
+
+```{r}
+
+# reticulate::conda_install(
+#   envname = "classEnvironment", 
+#   packages = "requests"
+# )
+
+```
+
+```{python}
+
+import requests
+
+response = requests.get(url="https://cloud.culture.tw/frontsite/trans/SearchShowAction.do?method=doFindTypeJ&category=3")
+
+```
+
+```{python}
+
+print(response.status_code)    # 200 means no problem 
+
+if response.status_code == requests.codes.ok:   # remember *:*
+  print("OK!")
+
+```
+
+```{python}
+
+danceInfo = response.json()
+type(danceInfo)
+
+```
+
+```{python}
+danceInfo[1].keys()
+```
+
+```{python}
+
+# danceInfo[1].values()    # type it in the console
+
+```
+
+### practice2
+
+```{python}
+
+import pandas as pd
+
+finStatement=pd.read_csv("http://mopsfin.twse.com.tw/opendata/t187ap06_O_ci.csv")
+dict_finStatement=finStatement.to_dict()
+
+```
+import <module> as <name>：改變被匯入模組的名稱，像是：
+  import pandas
+  pd = pandas
+  del pandas
+
+```{python}
+dir()
+```
+
+利用物件“py”在R中獲取python裡的物件
+```{r}
+
+View(py$dict_finStatement)
+
+```
+
+找出dict_finStatement中'營業利益（損失）'為負的'公司名稱'
+```{python}
+
+# dict_finStatement.keys()    # type it in the console
+
+```
+
+```{python}
+
+# type it in the console
+
+# profit = list(dict_finStatement.get('營業利益（損失）').values())
+# 
+# [list(dict_finStatement.get('公司名稱').values())[i] for i in range(len(profit)) if profit[i] < 0]
+
+```
+
+# Generation comprehension with condition
+
+```{python}
+
+listJ = [10,2,7,3,8]
+
+[i for i in range(len(listJ)) if listJ[i] > 5]
+
+```
+
+```{python}
+
+x = []
+
+for i in range(len(listJ)): 
+  if listJ[i] > 5: 
+    x.append(i)
+
+print(x)
+
+```
+
+
+
+
+
+# CH3 函數與條件
+
+# 函數基本寫法
+
+def function_name(input1, input2=value, *input3, 
+**input4):
+
+  程序每行「內縮2格」
+
+  return ...
+
+input1：無預設值的input。
+input2：有預設值的input。
+*input3：將「無」keyword的input合成tuple物件。
+**input4：將「有」keyword的input合成dictionary物件。
+
+```{python}
+
+def add_fun(x, y): 
+  z = x + y
+  return z
+  
+add_fun(x=2, y=3)
+
+del add_fun
+
+```
+
+```{python}
+
+def add_fun(x, y):
+  return x + y
+  
+add_fun(2,3)
+
+del add_fun
+
+```
+
+預設值
+```{python}
+
+def add_fun(x, y=6): 
+  return x + y
+
+add_fun(3)
+
+del add_fun
+
+```
+
+pack to tuple
+```{python}
+
+def pack_tup(x, *y):
+  print('input1 is ', x)
+  print('input2 is ', y)
+  return None    # can be ignored
+
+pack_tup(1, [3,5], 10)
+pack_tup(["a","b"], {2,5,7}, 10)    # Except input 1, all input are packed to tuple.
+
+del pack_tup
+
+```
+
+pack to dictionary
+```{python}
+
+def pack_dic(x,**y):
+  print('input1 is ', x)
+  print('input2 is ', y)
+ 
+pack_dic(1, a=10, b={2,3})    # Except input 1, all input are packed to dictionary.
+
+del pack_dic
+
+```
+
+Any variable defined after a packed variable must be set by name.
+```{python}
+
+def pack_dic(x, *seq, y): 
+  print("x is ", x)
+  print("seq is ", seq)
+  print("y is ", y)
+  return None
+
+pack_dic(1, 2, 3, y=4)    # y must be set by name
+
+del pack_dic
+
+```
+
+unpacking usage
+```{python}
+
+def add_fun(a, b, c): 
+  return a + b + c
+
+add_fun(1, *[2, 3])
+add_fun(*[1, 2], 3)
+add_fun(*[1, 2, 3])
+
+```
+當call function時，*用在input，代表unpacking；
+當define function時，*用在input，代表packing
+
+```{python}
+
+# packing and unpacking
+
+a, *b, c = [1, 2, 3, 4, 5]
+a; b; c
+
+a, b, c = [1, *(2, 3)]
+a; b; c
+
+```
+
+## practice1
+
+建立標準常態分佈的pdf
+
+從 “math” module裡引入 “sqrt” “pi” “exp” 函數。（函數後不要加括號！）
+```{python}
+from math import sqrt, pi, exp
+```
+另外3種引入函數方式：
+
+1.  import “module”：引入整個模組。
+      使用 “module” 底下的函數，須要先寫 “module” 
+      例：math.sqrt(...)
+
+2.  import “module” as “new_name”：引入整個模組，但也許與其他地方有衝突，因此改名。
+      使用 “module” 底下的函數，須要先寫 “new_name” 
+      例：math's new_name.sqrt(...)
+
+3.  from “module” import *：引入 “module” 底下所有的函數。（不推！容易造成衝突）
+      使用函數不須先寫 “module” ，直接使用即可。
+
+
+```{python}
+
+def normal_pdf(z, mu=0, sigma=1): 
+  return 1/sqrt(2*pi*sigma**2) * exp(-(z-mu)**2/2*sigma**2)
+  
+normal_pdf(0.5)
+normal_pdf(-0.5)
+
+```
+
+## practice2
+
+建立Cobb-Douglass效用函數
+
+```{python}
+
+def utility_CD(x, y, alpha=0.5, beta=0.5): 
+  utiValue = x**alpha * y**beta
+  return utiValue
+
+utility_CD(1, 2)
+
+del utility_CD
+
+```
+
+```{python}
+
+def utility_CD(x, y, **parameters): 
+  alpha = parameters["alpha"]
+  beta = parameters["beta"]
+  utiValue = x**alpha * y**beta
+  return utiValue
+
+utility_CD(1, 2, alpha=0.5, beta=0.5)
+
+del utility_CD
+
+```
+
+
+
+# 條件
+
+## block statement
+
+```{python}
+
+from math import nan
+
+def reci(x):    # reciprocal
+  if x != 0: 
+    return 1/x
+  else: 
+    return nan
+
+reci(3); reci(-2); reci(0)
+
+```
+
+domain = [-1, 1]
+```{python}
+
+def reci(x):    # reciprocal
+  if x!=0 and x>-1 and x<1: 
+    return 1/x
+  else: 
+    return nan
+
+reci(0.25); reci(-3); reci(0)
+
+```
+
+```{python}
+
+def fun1(x): 
+  if x >= 0:
+    return x**2
+  elif x < 0 and x > -1: 
+    return -x**2
+  else: 
+    return nan
+
+fun1(1); fun1(-0.5); fun1(-1)
+
+```
+
+## inline statement
+
+A if <condition> else B
+
+```{python}
+
+x = 4
+y = 5 if x > 3 else 7
+y
+
+x = 3
+y = 5 if x > 3 else 7
+y
+
+```
+
+```{python}
+
+def reci(x): 
+  return 1/x if x!=0 else nan
+
+reci(3); reci(-2); reci(0)
+
+```
+
+
+### practice1
+
+寫一個 回傳負值index 的函數
+
+```{python}
+
+listJ = [1,-2,3,-4,10,"-4"]
+
+```
+
+想法：對於[0, 1, 2, ...]（iterable）裡面的所有元素，如果滿足條件，我要呈現它。
+```{python}
+
+for iterable in range(len(listJ)): 
+  if type(listJ[iterable]) == int and listJ[iterable] < 0: 
+    iterable
+
+```
+
+若要寫成函數，必須回傳「單一」物件！
+
+傳統寫法by operation
+```{python}
+
+x = []
+
+for iterable in range(len(listJ)): 
+  if type(listJ[iterable]) == int and listJ[iterable] < 0: 
+    x = x + [iterable]
+x
+
+```
+
+傳統寫法by method
+```{python}
+
+x = []
+
+for iterable in range(len(listJ)): 
+  if type(listJ[iterable]) == int and listJ[iterable] < 0: 
+    x.append(iterable)
+x
+
+```
+
+快速寫法
+```{python}
+
+[iterable for iterable in range(len(listJ)) if type(listJ[iterable]) == int and listJ[iterable] < 0]
+
+```
+
+寫成函數
+```{python}
+
+def negIndReturn(list_x): 
+  x = []
+  for iterable in range(len(list_x)): 
+    if type(list_x[iterable]) == int and list_x[iterable] < 0: 
+      x.append(iterable)
+  return x
+
+negIndReturn(listJ)
+
+```
+
+### practice2
+
+```{python}
+
+import pandas as pd
+
+finStatement=pd.read_csv("http://mopsfin.twse.com.tw/opendata/t187ap06_O_ci.csv")
+dict_finStatement=finStatement.to_dict()
+
+```
+
+```{python}
+
+# type it in the console
+
+# copName = list(dict_finStatement['公司名稱'].values())
+# profit = list(dict_finStatement['營業利益（損失）'].values())
+# 
+# [copName[i] for i in range(len(copName)) if profit[i] < 0]
+
+```
+
+```{python}
+
+# type it in the console
+
+# def lossFirmList(dict_finSta):
+# 
+#   copName = list(dict_finSta['公司名稱'].values())
+#   profit = list(dict_finSta['營業利益（損失）'].values())
+# 
+#   return [copName[i] for i in range(len(copName)) if profit[i] < 0]
+
+```
+
+
+
+# local and global
+
+多數程式語言，當函數使用到input所沒有的物件時，它會去global environment找。
+```{python}
+
+c='one'
+
+def funDemo():
+  print(c)
+
+funDemo()
+
+del c
+
+# funDemo()    # c is not defined in global env
+
+```
+
+呼叫function時會開啟一個環境，叫executive environment，在裡面執行函數的程序。
+如果執行中有創造出任何物件，它會存活在executive environment內。
+然而函數程序執行完後，整個executive environment會刪除，物件也就消失了。
+```{python}
+
+def funDemo():
+  localC="two"
+  return localC
+
+funDemo()
+# localC    # localC disappeared
+
+```
+
+
+function input（比如叫x）若是直接來自global env（比如叫global1），它相當於是在做
+  x = global1 的定義式複製。
+如果global1是mutable，要小心函數裡對x值的更改會動到global1。
+```{python}
+
+global1=[1,3,[4,5]]
+
+def funtest(x):
+  x[0] = "a"
+  y = x[:]    # slice copy (shallow)
+  y[1] = "b"    # x doesn't change
+  y[2][1] = "c"    # x has changed
+  return None
+
+global1
+
+funtest(global1)    # definition copy: x = global1
+global1
+
+```
+
+流程解析
+```{python}
+
+global1=[1,3,[4,5]]
+global1
+
+
+# enter executive environment
+
+x = global1
+x[0] = "a"    # global1 changed
+y = x[:]
+
+y[1] = "b" 
+# x doesn't change because y is the shallow copy of x. So of course global1 doesn't change.
+
+y[2][1] = "c"    # global1 changed
+
+
+# delete executive environment objects
+
+del x, y
+
+
+global1
+
+```
+
+
+

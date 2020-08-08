@@ -1,0 +1,43 @@
+---
+title: "20191017 class"
+author: "jacky wang"
+date: "2020/8/7"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(echo = TRUE)
+
+library(reticulate)
+
+# 設定要使用的python（可能因要使用不同版本的python而路徑有所改變）
+use_python("D:\\anaconda3\\envs\\classEnvironment\\python.exe", required = T)
+# 在名為classEnvironment的沙盒下寫python
+use_condaenv("classEnvironment", required = T)
+```
+
+**設定**
+
+按小齒輪－＞按chunk output in console－＞彈出寫code視窗
+chunk output in console讓console可編譯Python（>>> Python code）
+在console打exit，就會回復原狀（> R code）
+
+**技巧**
+在console裡打 repl_python() ，讓console可編譯Python（>>> Python code）。
+
+
+
+
+
+# 123
+
+```{python}
+
+
+
+```
+
+
+
+
